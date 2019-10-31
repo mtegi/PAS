@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Dzisiaj jest <span th:text="${date}"/> </h2>
+<div th:text="${msg}"/>
+</br>
+
+<!--Musi byc lepsza metoda by to zrobic xd-->
+<form action="/SpringMVC_war_exploded/books">
+    <input type="submit" value="Show Books" />
+</form>
+</body>
+</html>
