@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/main}">
 <head>
-    <meta charset="UTF-8">
-    <title>BOOKS</title>
+<head>
+    <title>Books</title>
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th> Title</th>
-        <th> Author</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!--iterujemy po naszych booksach i tworzymy rowy tabeli-->
-    <tr th:each="book: ${books}">
-        <td th:text="${book.title}"/>
-        <td th:text="${book.author.firstName + ' ' + book.author.lastName}" + />
-    </tr>
-    </tbody>
-</table>
+<div layout:fragment="content">
+    <table class="table table-bordered bg-secondary">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--iterujemy po naszych booksach i tworzymy rowy tabeli-->
+        <tr th:each="book: ${books}">
+            <td th:text="${book.title}"/>
+            <td th:text="${book.author.firstName + ' ' + book.author.lastName}" + />
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

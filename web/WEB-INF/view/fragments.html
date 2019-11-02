@@ -1,20 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{resources/css/style.css}">
 </head>
 <body>
-<footer th:fragment="footer">
+
+<header th:fragment="header">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">test</a></li>
+            <li class="breadcrumb-item"><a href="#">test2</a></li>
+            <li class="breadcrumb-item active" aria-current="page">test3</li>
+        </ul>
+    </nav>
+</header>
+
+<div th:fragment="side-menu" class="sidebar-wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-internal">
+            <h3 id="sidebar-header">Library</h3>
+        <ul>
+            <li class="sidebar-item"><a th:href="@{/}">Home</a></li>
+            <li class="sidebar-item"><a th:href="@{/books}">Books</a></li>
+        </ul>
+        </div>
+    </nav>
+</div>
+
+<footer th:fragment="footer" id="sticky-footer">
     <div class="container text-center">Aplikacja na PAS | Michał Tęgi | Jakub Fornalski</div>
 </footer>
 
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
