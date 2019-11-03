@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{resources/css/style.css}">
@@ -18,7 +22,7 @@
             </nav>
         </div>
         <div style="display: inline-block; float: right">
-            <div th:replace="::login-form"></div>
+            <button class="btn btn-outline-secondary" type="button"><a th:href="@{/login}">Login</a></button>
         </div>
     </div>
 </header>
@@ -39,11 +43,16 @@
     <div class="container text-center">Aplikacja na PAS | Michał Tęgi | Jakub Fornalski</div>
 </footer>
 
-<form class="form-inline" th:fragment="login-form">
-    <input type="text" class="form-control" placeholder="Username">
-    <input type="password" class="form-control" placeholder="Password">
-    <button class="btn btn-outline-secondary" type="button">Login</button>
+<div th:fragment="login-form">
+<form class="form-inline" method="post" th:action="@{/login}">
+    <input type="text" class="form-control" placeholder="Username" name="username" th:required="required" th:autofocus="autofocus">
+    <input type="password" class="form-control" placeholder="Password" name="password"  th:required="required">
+    <input class="btn btn-outline-secondary" type="submit" value="Login">
 </form>
+    <div th:if="${param.error}" class="error">
+        Invalid username or password.
+    </div>
+</div>
 
 </body>
 </html>
