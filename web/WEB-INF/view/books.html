@@ -23,6 +23,7 @@
         <tr th:each="book: ${books}">
             <td th:text="${book.title}"/>
             <td th:text="${book.author.firstName + ' ' + book.author.lastName}" + />
+            <td><button type="button" class="btn btn-primary">Borrow</button></td>
         </tr>
         </tbody>
     </table>

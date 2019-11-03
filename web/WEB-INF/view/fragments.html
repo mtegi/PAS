@@ -7,23 +7,30 @@
 <body>
 
 <header th:fragment="header">
-    <nav aria-label="breadcrumb">
-        <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">test</a></li>
-            <li class="breadcrumb-item"><a href="#">test2</a></li>
-            <li class="breadcrumb-item active" aria-current="page">test3</li>
-        </ul>
-    </nav>
+    <div class="container-fluid" style="margin-top: 10px">
+        <div style="min-width: 1000px; display: inline-block;">
+            <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">test</a></li>
+                    <li class="breadcrumb-item"><a href="#">test2</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">test3</li>
+                </ul>
+            </nav>
+        </div>
+        <div style="display: inline-block; float: right">
+            <div th:replace="::login-form"></div>
+        </div>
+    </div>
 </header>
 
 <div th:fragment="side-menu" class="sidebar-wrapper">
     <nav id="sidebar">
         <div class="sidebar-internal">
             <h3 id="sidebar-header">Library</h3>
-        <ul>
-            <li class="sidebar-item"><a th:href="@{/}">Home</a></li>
-            <li class="sidebar-item"><a th:href="@{/books}">Books</a></li>
-        </ul>
+            <ul>
+                <li class="sidebar-item"><a th:href="@{/}">Home</a></li>
+                <li class="sidebar-item"><a th:href="@{/books}">Books</a></li>
+            </ul>
         </div>
     </nav>
 </div>
@@ -31,6 +38,12 @@
 <footer th:fragment="footer" id="sticky-footer">
     <div class="container text-center">Aplikacja na PAS | Michał Tęgi | Jakub Fornalski</div>
 </footer>
+
+<form class="form-inline" th:fragment="login-form">
+    <input type="text" class="form-control" placeholder="Username">
+    <input type="password" class="form-control" placeholder="Password">
+    <button class="btn btn-outline-secondary" type="button">Login</button>
+</form>
 
 </body>
 </html>
