@@ -12,11 +12,12 @@
 </head>
 <body>
 <div th:replace="fragments.html :: header"></div>
-<div th:replace="fragments.html :: user-console"></div>
-<div th:replace="fragments.html :: side-menu"></div>
-<div class="container">
-    <div layout:fragment="content">
-        <!-- MAIN CONTENT WILL BE HERE -->
+<div class="flex-container">
+    <div th:replace="fragments.html :: side-menu"></div>
+    <div class="main-container">
+        <div layout:fragment="content">
+            <!-- MAIN CONTENT WILL BE HERE -->
+        </div>
     </div>
 </div>
 <div th:replace="fragments.html :: footer"></div>

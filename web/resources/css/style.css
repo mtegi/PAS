@@ -2,9 +2,10 @@ body {
     height: 100%;
     background: #007bff;
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 800%;
+    background-size: 400% 900%;
     animation: gradientBG 15s ease infinite;
 }
+
 
 .breadcrumb {background: rgba(255, 255, 255, 0.44); border: 0px solid rgba(255, 255, 255, 1); border-radius: 17px; display: block;}
 
@@ -19,6 +20,7 @@ body {
         background-position: 0% 50%;
     }
 }
+
 
 .bg-secondary{
     background: white;
@@ -40,10 +42,38 @@ h2 {
     font-weight: bold;
 }
 
+.main-container{
+    flex:6;
+    flex-direction: column;
+    display: flex;
+}
+
+.header-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 5rem;
+    justify-content: space-between;
+}
+
+.left-header-part{
+    display: inline-block;
+    min-width: 75rem;
+    max-width: 75rem;
+}
+
+.right-header-part{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
 
 .sidebar-wrapper{
     align-items: stretch;
-
+    flex: 1;
+    max-width: 10%;
+    min-width: 10%;
 }
 
 .sidebar-internal{
@@ -61,8 +91,6 @@ h2 {
 }
 
 #sidebar {
-    max-width: 250px;
-    min-width: 250px;
     border-radius: 5px;
     background: crimson;
 }
@@ -76,9 +104,55 @@ h2 {
 #username-header{
     font-weight: bold;
     font-size: large;
-    margin-right: 7%;
 }
 
 .btn{
     background-color: azure;!important;
+}
+
+.flex-container{
+    display: flex;
+}
+
+.flex-inline-center-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.flex-inline-center-container > a{
+    margin: auto 1rem;
+}
+
+#management-console{
+    display: flex;
+    flex-direction: column;
+    margin: auto 1rem;
+
+}
+
+.login-form{
+    position: fixed;
+    width: 50rem;
+    margin: 5% auto;
+    left: 0;
+    right: 0;
+}
+
+table.table-fit {
+    width: auto !important;
+    table-layout: auto !important;
+}
+table.table-fit thead th, table.table-fit tfoot th {
+    width: auto !important;
+}
+table.table-fit tbody td, table.table-fit tfoot td {
+    width: auto !important;
+}
+
+.fixed-centered{
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
