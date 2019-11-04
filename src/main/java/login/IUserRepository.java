@@ -1,6 +1,9 @@
 package login;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface IUserRepository {
-    void addUser(User user);
-    public User findByUsername(String username);
+    void addUser(UserModel user);
+    UserModel findByUsername(String username);
 }

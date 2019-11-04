@@ -5,14 +5,21 @@ import org.springframework.stereotype.Repository;
 import java.util.HashSet;
 
 @Repository
-public class UserRepository {
+public class UserRepository implements IUserRepository{
 
-    private HashSet<User> users;
-    public void addUser(User user){
+    private HashSet<UserModel> users;
+
+    public UserRepository() {
+        users = new HashSet<UserModel>();
+        addUser(new UserModel("admin","admin","ADMIN"));
+        addUser(new UserModel("user","user","USER"));
+    }
+
+    public void addUser(UserModel user){
         this.users.add(user);
     }
 
-    public User findByUsername(final String username){
+    public UserModel findByUsername(final String username){
         return this.users.stream().filter(user -> username.equals(user.getUsername())).findAny().orElse(null);
     }
 }

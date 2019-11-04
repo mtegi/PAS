@@ -1,10 +1,16 @@
 package login;
 
-public class User {
+public class UserModel {
     private String username;
     private String password;
-    private String firstname;
-    private String lastname;
+    private String[] roles;
+
+    public UserModel(String username, String password, String... roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
+
 
     public String getUsername() {
         return username;
@@ -22,19 +28,11 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String[] getRoles() {
+        return roles;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setRoles(String[] roles) {
+        this.roles = roles;
     }
 }
