@@ -21,13 +21,19 @@
                 </ul>
             </nav>
         </div>
-        <div style="display: inline-block; float: right">
-            <button class="btn btn-outline-secondary" type="button"><a th:href="@{/login}">Login</a></button>
+        <div style="display: flex; float: right; justify-content: right; align-items: center;">
+        <div sec:authorize="isAuthenticated()" style="display: inline-flex;">
+            <span id="username-header" sec:authentication="name">Username</span>
+            <form  method="post" th:action="@{/logout}">
+                <input class="btn btn btn-light" type="submit" value="Logout">
+            </form>
+        </div>
+            <a sec:authorize="isAnonymous()" class="btn btn-light" type="button" th:href="@{/login}">Login</a>
         </div>
     </div>
 </header>
 
-<div th:fragment="side-menu" class="sidebar-wrapper">
+<div th:fragment="side-menu" class="sidebar-wrapper side-item">
     <nav id="sidebar">
         <div class="sidebar-internal">
             <h3 id="sidebar-header">Library</h3>
@@ -43,14 +49,26 @@
     <div class="container text-center">Aplikacja na PAS | Michał Tęgi | Jakub Fornalski</div>
 </footer>
 
-<div th:fragment="login-form">
-<form class="form-inline" method="post" th:action="@{/login}">
-    <input type="text" class="form-control" placeholder="Username" name="username" th:required="required" th:autofocus="autofocus">
-    <input type="password" class="form-control" placeholder="Password" name="password"  th:required="required">
-    <input class="btn btn-outline-secondary" type="submit" value="Login">
-</form>
-    <div th:if="${param.error}" class="error">
-        Invalid username or password.
+<div th:fragment="login-form" class="d-inline-flex flex-column justify-content-center align-items-center align-self-center" style="margin-left: 33%; max-width: 40%;" >
+    <div class="p2">
+        <form class="form" method="post" th:action="@{/login}">
+            <input type="text" class="form-control form-control-lg" placeholder="Username" name="username" th:required="required" th:autofocus="autofocus" style="margin-bottom: 10px">
+            <input type="password" class="form-control form-control-lg" placeholder="Password" name="password"  th:required="required" style="margin-bottom: 10px">
+            <input class="btn btn-outline-secondary btn-lg" type="submit" value="Login" style="margin-bottom: 10px;">
+        </form>
+    </div>
+    <div style="margin-top: 10px; margin-left: 33%;"  th:if="${param.error} " th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+        <span class="alert alert-danger" role="alert" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
+    </div>
+</div>
+
+<div sec:authorize="isAuthenticated()" th:fragment="user-console">
+    <div sec:authorize="hasRole('ROLE_USER')" class="d-inline-flex">
+        <a class="btn btn btn-light" type="button" th:href="@{/}">My Books</a>
+    </div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')" class="d-inline-flex side-item">
+        <a class="btn btn btn-light" type="button" th:href="@{/}">Manage users</a>
+        <a class="btn btn btn-light" type="button" th:href="@{/}">Manage books</a>
     </div>
 </div>
 
