@@ -1,5 +1,6 @@
 package login;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
@@ -9,11 +10,9 @@ public class UserRepository implements IUserRepository{
 
     private HashSet<UserModel> users;
 
-    public UserRepository() {
-        users = new HashSet<UserModel>();
-        addUser(new UserModel("admin","admin","ADMIN"));
-        addUser(new UserModel("user","user","USER"));
-        System.out.println(users.size());
+    @Autowired
+    public UserRepository(IUserProvider userProvider) {
+        users = userProvider.provideUsers();
     }
 
     public boolean addUser(UserModel user){
