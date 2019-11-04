@@ -13,10 +13,12 @@ public class UserRepository implements IUserRepository{
         users = new HashSet<UserModel>();
         addUser(new UserModel("admin","admin","ADMIN"));
         addUser(new UserModel("user","user","USER"));
+        System.out.println(users.size());
     }
 
-    public void addUser(UserModel user){
-        this.users.add(user);
+    public boolean addUser(UserModel user){
+        if(findByUsername(user.getUsername()) != null) return false;
+        return this.users.add(user);
     }
 
     public UserModel findByUsername(final String username){
