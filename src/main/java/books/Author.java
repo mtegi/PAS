@@ -1,8 +1,8 @@
-package model;
+package books;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-public class Author {
+public class Author implements Comparable<Author> {
     private String firstName;
     private String lastName;
 
@@ -18,5 +18,14 @@ public class Author {
     @ModelAttribute("lastname")
     public String getLastName() {
         return lastName;
+    }
+
+
+    @Override
+    public int compareTo(Author author) {
+        if (lastName != author.getLastName()) {
+            return lastName.compareToIgnoreCase(author.getLastName());
+        }
+        return firstName.compareToIgnoreCase(author.getFirstName());
     }
 }

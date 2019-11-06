@@ -1,26 +1,42 @@
 package controller;
 
-import model.DataRepository;
+import books.Book;
+import books.BookCompareByAuthor;
+import books.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller //mowimy springowi ze to controller
+import java.util.ArrayList;
+
+@Controller
 public class ShowBooksController {
 
-    private DataRepository dao;
+    private BookRepository bookRepository;
 
-    @Autowired //znajdz dao i wstrzyknij
-    public ShowBooksController(DataRepository dao) {
-        this.dao = dao;
+    @Autowired
+    public ShowBooksController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
-    @GetMapping({"/books"}) //przypisanie kontekstu
-    public String handleRequest (Model model) {
-        System.out.println(dao.getBooks().get(0));
-        model.addAttribute("books", dao.getBooks()); //przekaz nasza liste jako 'books' do widoku
-        return "books";//odwolanie do pliku htmla
+    @GetMapping({"/books"})
+    public String handleGETRequest (Model model) {
+        ArrayList<Book> books = bookRepository.getAll();
+        books.sort(new BookCompareByAuthor());
+        model.addAttribute("books",books);
+        return "books";
+    }
+
+    @PostMapping({"/books"})
+    public String filterBooks (@RequestParam(name = "filterStr") String filterStr, Model model) {
+        if(filterStr.contentEquals("")) handleGETRequest(model);
+        ArrayList<Book> books = bookRepository.getBooksByTitle(filterStr);
+        books.sort(new BookCompareByAuthor());
+        model.addAttribute("books",books);
+        return "books";
     }
 
 
