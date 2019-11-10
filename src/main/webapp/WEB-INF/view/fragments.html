@@ -68,7 +68,7 @@
         <a class="btn btn btn-light" type="button" th:href="@{/}">My Books</a>
     </div>
     <div sec:authorize="hasRole('ROLE_ADMIN')" class="flex-inline-center-container">
-        <a class="btn btn btn-light" type="button" th:href="@{/}">Manage users</a>
+        <a class="btn btn btn-light" type="button" th:href="@{/admin/manage-users}">Manage users</a>
         <a class="btn btn btn-light" type="button" th:href="@{/}">Manage books</a>
     </div>
 </div>

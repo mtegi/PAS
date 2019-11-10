@@ -4,6 +4,7 @@
         xmlns:th="http://www.thymeleaf.org"
         xmlns="http://www.w3.org/1999/html"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         layout:decorate="~{layouts/main}">
 <head>
     <title>Login</title>
@@ -11,6 +12,9 @@
 <body>
 <div layout:fragment="content">
     <div th:replace="fragments.html :: login-form"></div>
+    <div>
+        <a sec:authorize="isAnonymous()" class="btn btn-light" type="button" th:href="@{/register}">Create Account</a>
+    </div>
 </div>
 </body>
 </html>

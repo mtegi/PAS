@@ -1,7 +1,13 @@
-package login;
+package login.model;
+
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class UserModel {
+    @NotNull(message = "Please enter username")
     private String username;
+    @Size(min=6, message = "{user.password.size}")
     private String password;
     private String[] roles;
 
@@ -10,6 +16,14 @@ public class UserModel {
         this.password = password;
         this.roles = roles;
     }
+
+    public UserModel(String username, String password){
+        this.username = username;
+        this.password = password;
+        this.setRoles("USER");
+    }
+
+    public UserModel(){}
 
 
     public String getUsername() {
@@ -32,7 +46,7 @@ public class UserModel {
         return roles;
     }
 
-    public void setRoles(String[] roles) {
+    public void setRoles(String... roles) {
         this.roles = roles;
     }
 }

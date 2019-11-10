@@ -1,6 +1,6 @@
 package config;
 
-import login.UserServiceImpl;
+import login.service.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
        http
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
+               .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

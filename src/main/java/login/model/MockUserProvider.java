@@ -1,4 +1,4 @@
-package login;
+package login.model;
 
 import org.springframework.stereotype.Component;
 

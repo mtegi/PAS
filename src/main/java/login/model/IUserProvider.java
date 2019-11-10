@@ -1,4 +1,4 @@
-package login;
+package login.model;
 
 import java.util.HashSet;
 
