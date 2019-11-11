@@ -53,26 +53,6 @@ public class WebConfig implements WebMvcConfigurer {
         return templateEngine;
     }
 
-   /* @Bean
-    public MessageSource messageSource(){
-        ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
-        bean.setBasenames("classpath:messages");
-        bean.setDefaultEncoding("UTF-8");
-        return bean;
-    }
-
-    @Bean
-    public LocalValidatorFactoryBean validator() {
-        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-        bean.setValidationMessageSource(messageSource());
-        return bean;
-    }
-
-    @Override
-    public Validator getValidator() {
-        return validator();
-    }*/
-
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
