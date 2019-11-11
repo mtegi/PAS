@@ -37,7 +37,7 @@ public class RegisterController {
             model.addAttribute("errorHappened",false);
             newUser.setRoles("USER");
             if(userRepository.addUser(newUser))
-                return "redirect/:login";
+                return "redirect:/login";
             else{
                 model.addAttribute("errorHappened",true);
                 String usernameTaken = "Username is already taken";
