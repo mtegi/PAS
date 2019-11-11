@@ -156,3 +156,8 @@ table.table-fit tbody td, table.table-fit tfoot td {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.login-form > div > p{
+    font-weight: bold;
+    font-size: 5rem;
+}

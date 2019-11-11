@@ -22,14 +22,8 @@
                 <input class="btn btn-outline-secondary btn-lg" type="submit" value="Register" style="margin-bottom: 10px;">
             </form>
         </div>
-        <div style="margin-top: 10px; margin-left: 33%;">
-            <div th:if="${#fields.hasGlobalErrors()}">
-                <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-            </div>
-            <div th:if="${param.error}">
-                <p>errror</p>
-            </div>
-            <span class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="font-weight: bold">Wrong input!</span>
+        <div class="flex-inline-center-container">
+            <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
         </div>
     </div>
 </div>

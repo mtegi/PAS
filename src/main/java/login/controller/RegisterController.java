@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +17,6 @@ public class RegisterController {
 
     private IUserRepository userRepository;
 
-
     @Autowired
     public RegisterController(IUserRepository userRepository) {
         this.userRepository = userRepository;
@@ -26,20 +24,26 @@ public class RegisterController {
 
     @GetMapping({"/register"})
     public String handleGetRequest (Model model) {
+        model.addAttribute("errorHappened",false);
         return "register";
     }
 
     @PostMapping("/register")
     public String handlePostRequest (@Valid @ModelAttribute("newUser") UserModel newUser, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()){
-            System.out.println(bindingResult.getFieldErrorCount());
-            for (FieldError err:bindingResult.getFieldErrors()){
-                System.out.println(err.getDefaultMessage()); // Output: must be greater than or equal to 10
-            }
+            model.addAttribute("errorHappened",true);
+            model.addAttribute("errorMsg", bindingResult.getFieldError().getDefaultMessage());
         }else{
+            model.addAttribute("errorHappened",false);
             newUser.setRoles("USER");
-            userRepository.addUser(newUser);
-            return "redirect/:login";
+            if(userRepository.addUser(newUser))
+                return "redirect/:login";
+            else{
+                model.addAttribute("errorHappened",true);
+                String usernameTaken = "Username is already taken";
+                model.addAttribute("errorMsg", usernameTaken);
+                return "register";
+            }
         }
         return "register";
     }

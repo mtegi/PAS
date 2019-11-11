@@ -29,7 +29,10 @@
                 <input class="btn btn btn-light" type="submit" value="Logout">
             </form>
         </div>
-            <a sec:authorize="isAnonymous()" class="btn btn-light" type="button" th:href="@{/login}">Login</a>
+            <div sec:authorize="isAnonymous()" class="flex-inline-center-container">
+                <a class="btn btn-light" type="button" th:href="@{/register}">Create Account</a>
+                <a class="btn btn-light" type="button" th:href="@{/login}">Login</a>
+            </div>
         </div>
     </div>
 </header>
@@ -52,6 +55,7 @@
 
 <div th:fragment="login-form" class="login-form">
     <div class="p2">
+        <p>Sign In</p>
         <form class="form" method="post" th:action="@{/login}">
             <input type="text" class="form-control form-control-lg" placeholder="Username" name="username" th:required="required" th:autofocus="autofocus" style="margin-bottom: 10px">
             <input type="password" class="form-control form-control-lg" placeholder="Password" name="password"  th:required="required" style="margin-bottom: 10px">
