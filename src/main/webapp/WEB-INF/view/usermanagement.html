@@ -10,6 +10,15 @@
 </head>
 <body>
 <div layout:fragment="content">
+    <div>
+        <form class="form-inline" method="post" th:action="@{/admin/manage-users}"><div>
+            <input class="form-control" type="text" name="username" placeholder="username">
+            <input class="btn btn-outline-secondary" type="submit" value="Deactivate">
+        </div></form>
+        <div class="flex-inline-center-container">
+            <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
+        </div>
+    </div>
 <table class="table table-bordered bg-secondary table-fit fixed-centered">
     <thead>
     <tr>

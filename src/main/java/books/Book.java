@@ -1,6 +1,8 @@
 package books;
 
-public class Book  {
+import model.IAllocable;
+
+public class Book implements IAllocable {
     private String title;
     private Author author;
 
