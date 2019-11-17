@@ -1,4 +1,6 @@
-package books;
+package books.utils;
+
+import books.model.Book;
 
 import java.util.Comparator;
 

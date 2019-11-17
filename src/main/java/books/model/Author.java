@@ -1,4 +1,4 @@
-package books;
+package books.model;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 

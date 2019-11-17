@@ -1,6 +1,6 @@
-import books.Author;
-import books.Book;
-import books.BookRepository;
+import books.model.Author;
+import books.model.Book;
+import books.model.BookRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

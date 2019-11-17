@@ -1,5 +1,5 @@
-import books.Author;
-import books.Book;
+import books.model.Author;
+import books.model.Book;
 import model.IDataProvider;
 
 import java.util.Collection;

@@ -1,7 +1,7 @@
 package login.controller;
 
-import login.model.IUserRepository;
 import login.model.UserModel;
+import login.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,23 +14,23 @@ import java.util.ArrayList;
 @Controller
 public class UserManagementController {
 
-    private IUserRepository userRepository;
+    private IUserService userService;
 
     @Autowired
-    public UserManagementController(IUserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserManagementController(IUserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping({"/admin/manage-users"})
     public String handleGetRequest (Model model) {
-        ArrayList<UserModel> users = (ArrayList<UserModel>) userRepository.getAll();
+        ArrayList<UserModel> users = (ArrayList<UserModel>) userService.getAll();
         model.addAttribute("users", users);
         return "usermanagement";
     }
 
     @PostMapping({"/admin/manage-users"})
     public String handlePostRequest (@ModelAttribute("username") String userToDeactivate, Model model) {
-        UserModel user = userRepository.findByUsername(userToDeactivate);
+        UserModel user = userService.findByUsername(userToDeactivate);
         if(user == null){
             model.addAttribute("errorHappened",true);
             model.addAttribute("errorMsg", "User not found");

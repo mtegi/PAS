@@ -1,4 +1,4 @@
-package books;
+package books.model;
 
 import model.IDataProvider;
 import org.springframework.stereotype.Component;

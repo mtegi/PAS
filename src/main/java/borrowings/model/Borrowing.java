@@ -1,4 +1,4 @@
-package borrowings;
+package borrowings.model;
 
 import login.model.UserModel;
 import model.IAllocable;

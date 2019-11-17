@@ -1,6 +1,6 @@
 package copies;
 
-import books.Book;
+import books.model.Book;
 import model.IAllocable;
 
 public class Copy implements IAllocable {

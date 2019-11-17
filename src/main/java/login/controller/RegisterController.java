@@ -1,7 +1,7 @@
 package login.controller;
 
-import login.model.IUserRepository;
 import login.model.UserModel;
+import login.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +15,11 @@ import javax.validation.Valid;
 @Controller
 public class RegisterController {
 
-    private IUserRepository userRepository;
+    private IUserService userService;
 
     @Autowired
-    public RegisterController(IUserRepository userRepository) {
-        this.userRepository = userRepository;
+    public RegisterController(IUserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping({"/register"})
@@ -35,8 +35,7 @@ public class RegisterController {
             model.addAttribute("errorMsg", bindingResult.getFieldError().getDefaultMessage());
         }else{
             model.addAttribute("errorHappened",false);
-            newUser.setRoles("USER");
-            if(userRepository.addUser(newUser))
+            if(userService.addUser(newUser))
                 return "redirect:/login";
             else{
                 model.addAttribute("errorHappened",true);

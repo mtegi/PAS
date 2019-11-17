@@ -1,4 +1,4 @@
-package borrowings;
+package borrowings.model;
 
 import model.IDataProvider;
 import model.IRepository;
