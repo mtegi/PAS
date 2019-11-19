@@ -111,6 +111,16 @@ h2 {
     background-color: azure;!important;
 }
 
+.form-row{
+    display: flex;
+}
+.form-row > div {
+    display: flex;
+    flex-direction: column;
+    width: 50rem;
+}
+
+
 .flex-container{
     display: flex;
 }

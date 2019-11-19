@@ -2,8 +2,12 @@ package books.model;
 
 import model.IAllocable;
 
+import javax.validation.constraints.NotNull;
+
 public class Book implements IAllocable {
+    @NotNull
     private String title;
+    @NotNull
     private Author author;
 
     public Book(String title, Author author){
@@ -21,6 +25,15 @@ public class Book implements IAllocable {
 
     public Author getAuthor() {
         return author;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if(!(other instanceof Book)) return super.equals(other);
+        else{
+            if(this.author.equals(((Book) other).author) && this.title.contentEquals(((Book) other).title)) return true;
+        }
+        return false;
     }
 
     @Override

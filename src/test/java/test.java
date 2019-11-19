@@ -27,5 +27,19 @@ class JUnitTestSuite {
         assertEquals(1,a1.compareTo(a2));
     }
 
+    @Test
+    @DisplayName("Book equals()")
+    void bookEquals() {
+        Author a1 = new Author("a","a");
+        Author a2 = new Author("a","a");
+        Book b1 = new Book("a",a1);
+        Book b2 = new Book("a", a2);
+        assertEquals(true, a1.equals(a2));
+        assertEquals(false, b1.equals(a2));
+        assertEquals(false, a1.equals(b1));
+        assertEquals(true, b1.equals(b1));
+        assertEquals(true, b1.equals(b2));
+    }
+
     }
 

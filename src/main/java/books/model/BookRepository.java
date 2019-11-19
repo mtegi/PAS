@@ -24,7 +24,20 @@ public class BookRepository implements IRepository<Book> {
 
     @Override
     public boolean add(Book book) {
-        return books.add(book);
+        if(checkIfUniqueBook(book))
+            return books.add(book);
+        return false;
+    }
+
+    private boolean checkIfUniqueBook(Book book) {
+        boolean unique = true;
+        for(Book b:books) {
+            if(book.equals(b)){
+                unique = false;
+                break;
+            }
+        }
+        return unique;
     }
 
     @Override

@@ -1,9 +1,12 @@
 package books.model;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
+import javax.validation.constraints.NotNull;
 
 public class Author implements Comparable<Author> {
+
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
 
     public Author(String firstName, String lastName) {
@@ -11,15 +14,22 @@ public class Author implements Comparable<Author> {
         this.lastName = lastName;
     }
 
-    @ModelAttribute("firstname")
     public String getFirstName() {
         return firstName;
     }
-    @ModelAttribute("lastname")
     public String getLastName() {
         return lastName;
     }
 
+
+    @Override
+    public boolean equals(Object other) {
+        if(!(other instanceof Author)) return super.equals(other);
+        else{
+            if(this.firstName.contentEquals(((Author) other).firstName) && this.lastName.contentEquals(((Author) other).lastName)) return true;
+        }
+        return false;
+    }
 
     @Override
     public int compareTo(Author author) {

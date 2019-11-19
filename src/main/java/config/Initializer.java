@@ -20,7 +20,7 @@ public class Initializer implements WebApplicationInitializer {
         //dodajemy sciezki do servletu dispatchera
         dispatcher.addMapping("/");
         dispatcher.addMapping("/books");
-        dispatcher.addMapping("/login","/register","/admin/manage-users","/access-denied");
+        dispatcher.addMapping("/login","/register","/admin/manage-users","/access-denied","/manager/addbook");
     }
 
     private AnnotationConfigWebApplicationContext getContext() {
