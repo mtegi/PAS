@@ -38,7 +38,17 @@
         <tr th:each="book: ${books}">
             <td th:text="${book.title}"/>
             <td th:text="${book.author.firstName + ' ' + book.author.lastName}" + />
-            <td><button type="button" class="btn btn-primary">Borrow</button></td>
+            <td><button sec:authorize="hasRole('ROLE_USER')" type="button" class="btn btn-primary">Borrow</button>
+                <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:object="${author}"  th:action="@{/manager/deletebook}"><div>
+                    <input class="form-control" type="hidden" name="title" th:value="${book.title}">
+                    <input class="form-control" type="hidden" name="firstName" th:value="${book.author.firstName}">
+                    <input class="form-control" type="hidden" name="lastName" th:value="${book.author.lastName}">
+                    <input class="btn btn-outline-secondary" type="submit" value="Delete">
+                    <div class="flex-inline-center-container">
+                        <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${deleteErrorMsg}" style="font-weight: bold">Wrong input!</span>
+                    </div>
+                </div></form>
+            </td>
         </tr>
         </tbody>
     </table>

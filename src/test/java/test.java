@@ -1,12 +1,13 @@
 import books.model.Author;
 import books.model.Book;
 import books.model.BookRepository;
+import books.service.BookService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class JUnitTestSuite {
@@ -28,17 +29,31 @@ class JUnitTestSuite {
     }
 
     @Test
+    @DisplayName("deleteBook")
+    void deleteBook() {
+        BookRepository repository = new BookRepository(new TestBookProvider());
+        BookService service = new BookService(repository);
+        assertEquals(5, service.getAll().size());
+        Book b = new Book("Gra o tron", new Author("Goerge R. R.","Martin"));
+        assertEquals("Gra o tron", repository.getAll().get(4).getTitle());
+        assertTrue(b.equals(repository.getAll().get(4)));
+        assertTrue(repository.delete(b));
+        assertTrue(repository.add(b));
+        assertTrue(service.remove(b));
+    }
+
+    @Test
     @DisplayName("Book equals()")
     void bookEquals() {
         Author a1 = new Author("a","a");
         Author a2 = new Author("a","a");
         Book b1 = new Book("a",a1);
         Book b2 = new Book("a", a2);
-        assertEquals(true, a1.equals(a2));
-        assertEquals(false, b1.equals(a2));
-        assertEquals(false, a1.equals(b1));
-        assertEquals(true, b1.equals(b1));
-        assertEquals(true, b1.equals(b2));
+        assertTrue(a1.equals(a2));
+        assertFalse(b1.equals(a2));
+        assertFalse(a1.equals(b1));
+        assertTrue(b1.equals(b1));
+        assertTrue(b1.equals(b2));
     }
 
     }

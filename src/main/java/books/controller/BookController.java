@@ -57,5 +57,19 @@ public class BookController {
         return handleGETRequest(model);
     }
 
+    @PostMapping({"/manager/deletebook"})
+    public  String deleteBook(@RequestParam("title") String title, @Valid @ModelAttribute(name = "author") Author author, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("errorHappened",true);
+            model.addAttribute("deleteErrorMsg", "Binding error");
+        }else{
+            model.addAttribute("errorHappened",false);
+            if(!bookService.remove(new Book(title,author)));
+                model.addAttribute("errorHappened",true);
+            model.addAttribute("deleteErrorMsg", "Book not found");
+        }
+        return handleGETRequest(model);
+    }
+
 
 }

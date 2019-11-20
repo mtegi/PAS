@@ -23,6 +23,15 @@ public class BookService implements IBookService {
     }
 
     @Override
+    public boolean remove(Book book) {
+        for (Book b:repository.getAll()
+             ) {
+            if(b.equals(book)) return repository.delete(b);
+        }
+        return false;
+    }
+
+    @Override
     public Collection<Book> getAll() {
         return repository.getAll();
     }

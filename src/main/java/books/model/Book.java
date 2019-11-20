@@ -10,8 +10,15 @@ public class Book implements IAllocable {
     @NotNull
     private Author author;
 
+    public Book(){}
+
     public Book(String title, Author author){
         this.author = author;
+        this.title = title;
+    }
+
+    public Book(String title, String firstName, String lastName){
+        this.author = new Author(firstName,lastName);
         this.title = title;
     }
 
