@@ -7,7 +7,7 @@ import java.util.Collection;
 
 public interface IBookService {
     boolean add(Book book);
-    boolean remove(Book book);
+    boolean remove(int bookId);
     Collection<Book> getAll();
 
     ArrayList<Book> getBooksByTitle(String filterStr);

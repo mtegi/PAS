@@ -5,21 +5,23 @@ import model.IAllocable;
 import javax.validation.constraints.NotNull;
 
 public class Book implements IAllocable {
+
     @NotNull
     private String title;
     @NotNull
     private Author author;
-
+    @NotNull
+    private int Id;
     public Book(){}
 
-    public Book(String title, Author author){
+    public Book(int id, String title, Author author){
+        this.Id = id;
         this.author = author;
         this.title = title;
     }
 
-    public Book(String title, String firstName, String lastName){
-        this.author = new Author(firstName,lastName);
-        this.title = title;
+    public int getId() {
+        return Id;
     }
 
     public String getTitle() {

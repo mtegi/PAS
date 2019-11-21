@@ -10,10 +10,10 @@ public class TestBookProvider implements IDataProvider<Book> {
         public void fill(Collection<Book> books) {
             Author sapek = new Author("Andrzej","Sapkowski");
             Author dzordz = new Author("Goerge R. R.","Martin");
-            books.add(new Book("Miecz Przeznaczenia", sapek));
-            books.add(new Book("Pani Jeziora", sapek));
-            books.add(new Book("Starcie królów",dzordz));
-            books.add(new Book("Nawałnica Mieczy",dzordz));
-            books.add(new Book("Gra o tron",dzordz));
+            books.add(new Book(1,"Miecz Przeznaczenia", sapek));
+            books.add(new Book(2,"Pani Jeziora", sapek));
+            books.add(new Book(3,"Starcie królów",dzordz));
+            books.add(new Book(4,"Nawałnica Mieczy",dzordz));
+            books.add(new Book(5,"Gra o tron",dzordz));
         }
     }

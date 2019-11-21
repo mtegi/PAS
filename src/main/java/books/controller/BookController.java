@@ -4,6 +4,7 @@ import books.model.Author;
 import books.model.Book;
 import books.service.IBookService;
 import books.utils.BookCompareByAuthor;
+import books.utils.BookIdManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +20,13 @@ import java.util.ArrayList;
 @Controller
 public class BookController {
 
+    private BookIdManager idManager;
     private IBookService bookService;
 
     @Autowired
-    public BookController(IBookService bookService) {
+    public BookController(IBookService bookService, BookIdManager idManager) {
         this.bookService = bookService;
+        this.idManager = idManager;
     }
 
     @GetMapping({"/books"})
@@ -50,7 +53,7 @@ public class BookController {
             model.addAttribute("errorMsg", "null field");
         }else{
             model.addAttribute("errorHappened",false);
-            if(!bookService.add(new Book(title,author)))
+            if(!bookService.add(new Book(idManager.nextId(),title,author)))
                 model.addAttribute("errorHappened",true);
                 model.addAttribute("errorMsg", "Book already exists");
             }
@@ -58,16 +61,12 @@ public class BookController {
     }
 
     @PostMapping({"/manager/deletebook"})
-    public  String deleteBook(@RequestParam("title") String title, @Valid @ModelAttribute(name = "author") Author author, BindingResult bindingResult, Model model){
-        if(bindingResult.hasErrors()){
-            model.addAttribute("errorHappened",true);
-            model.addAttribute("deleteErrorMsg", "Binding error");
-        }else{
-            model.addAttribute("errorHappened",false);
-            if(!bookService.remove(new Book(title,author)));
-                model.addAttribute("errorHappened",true);
-            model.addAttribute("deleteErrorMsg", "Book not found");
-        }
+    public  String deleteBook(@RequestParam("bookId") int bookId, Model model){
+            model.addAttribute("deleteError",false);
+            if(!bookService.remove(bookId)) {
+                model.addAttribute("deleteError", true);
+                model.addAttribute("deleteErrorMsg", "Book not found");
+            }
         return handleGETRequest(model);
     }
 
