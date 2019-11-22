@@ -1,10 +1,11 @@
 package books.model;
 
 import model.IAllocable;
+import model.IMapable;
 
 import javax.validation.constraints.NotNull;
 
-public class Book implements IAllocable {
+public class Book implements IMapable {
 
     @NotNull
     private String title;
