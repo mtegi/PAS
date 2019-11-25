@@ -1,8 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Hashtable;
+import java.util.*;
 
 public abstract class MapRepository<T extends IMapable> {
 
@@ -26,7 +24,7 @@ public T get(int id){
 
 public boolean add(T obj) {
         boolean success = true;
-        if(checkIfUniqueBook(obj)) {
+        if(checkIfUnique(obj)) {
         container.put(obj.getId(), obj);
         } else success = false;
         return success;
@@ -42,11 +40,11 @@ public void update(T oldObj, T newObj) {
         }
 
 public ArrayList<T> getAll() {
-        Collection<T> values = container.values();
-        return new ArrayList<>(values);
-        }
+    return new ArrayList<T>(container.values());
+}
 
-private boolean checkIfUniqueBook(IMapable obj) {
+
+private boolean checkIfUnique(IMapable obj) {
         if(container.values().stream().filter((IMapable b) -> b.equals(obj)).findFirst().orElse(null) != null)
             return false;
         return true;
