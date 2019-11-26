@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{layouts/main}">
+<head>
+    <head>
+        <title>My Allocations</title>
+    </head>
+<body>
+<div layout:fragment="content">
+    <table class="table table-bordered bg-secondary table-fit fixed-centered">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Book</th>
+            <th scope="col">Borrowed</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="copy: ${copies}">
+            <td th:text="${copy.Id}"></td>
+            <td th:text="${copy.book.title}"></td>
+            <td th:text="${copy.borrowed}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
