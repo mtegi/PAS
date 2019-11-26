@@ -26,7 +26,7 @@ public abstract class AbstractService<T extends IMapable> implements IService<T>
     }
 
     @Override
-    public T get(int id) {
+    public T get(int id) { //TODO:Nie dziala jest null
         return (T) repository.get(id);
     }
 }

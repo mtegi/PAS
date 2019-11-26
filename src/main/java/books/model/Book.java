@@ -1,6 +1,5 @@
 package books.model;
 
-import model.IAllocable;
 import model.IMapable;
 
 import javax.validation.constraints.NotNull;

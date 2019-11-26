@@ -2,7 +2,7 @@ package books.controller;
 
 import books.model.Author;
 import books.model.Book;
-import books.service.IBookService;
+import books.service.BookService;
 import books.utils.BookCompareByAuthor;
 import books.utils.BookIdManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +21,17 @@ import java.util.ArrayList;
 public class BookController {
 
     private BookIdManager idManager;
-    private IBookService bookService;
+    private BookService bookService;
 
     @Autowired
-    public BookController(IBookService bookService, BookIdManager idManager) {
+    public BookController(BookService bookService, BookIdManager idManager) {
         this.bookService = bookService;
         this.idManager = idManager;
     }
 
     @GetMapping({"/books"})
     public String handleGETRequest (Model model) {
-        ArrayList<Book> books = (ArrayList<Book>) bookService.getAll();
+        ArrayList<Book> books = bookService.getAll();
         books.sort(new BookCompareByAuthor());
         model.addAttribute("books",books);
         return "books";

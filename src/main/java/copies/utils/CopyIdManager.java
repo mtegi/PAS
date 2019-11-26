@@ -1,8 +1,10 @@
 package copies.utils;
 
 import model.IIdManager;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+@Qualifier("copyIdManager")
 @Component
 public class CopyIdManager implements IIdManager {
 

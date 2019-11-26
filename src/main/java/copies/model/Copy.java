@@ -4,9 +4,14 @@ import books.model.Book;
 import model.IAllocable;
 import model.IMapable;
 
+import javax.validation.constraints.NotNull;
+
 public class Copy implements IAllocable, IMapable {
+    @NotNull
     private int copyID;
+    @NotNull
     private Book book;
+    @NotNull
     private boolean borrowed;
 
     public Copy(int copyID, Book book) {
@@ -25,6 +30,16 @@ public class Copy implements IAllocable, IMapable {
 
     public void setBorrowed(boolean borrowed) {
         this.borrowed = borrowed;
+    }
+
+    @Override
+    public String getType() {
+        return "Book";
+    }
+
+    @Override
+    public String getTitle() {
+        return this.book.getTitle();
     }
 
     @Override

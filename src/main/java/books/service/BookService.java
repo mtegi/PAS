@@ -2,34 +2,20 @@ package books.service;
 
 import books.model.Book;
 import books.model.BookRepository;
+import model.AbstractService;
+import model.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 @Service
-public class BookService implements IBookService {
+public class BookService extends AbstractService<Book>  implements IBookService {
     private BookRepository repository;
 
     @Autowired
-    public BookService(BookRepository repository) {
-        this.repository = repository;
-    }
-
-    @Override
-    public boolean add(Book book) {
-        return repository.add(book);
-    }
-
-    @Override
-    public boolean remove(int bookId) {
-        return repository.delete(bookId);
-    }
-
-    @Override
-    public Collection<Book> getAll() {
-        return repository.getAll();
+    public BookService(MapRepository<Book> repository) {
+        super(repository);
     }
 
     @Override
