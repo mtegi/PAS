@@ -21,7 +21,7 @@ public class MockBorrowingProvider implements IDataProvider<Borrowing> {
 
     @Override
     public void fill(Collection<Borrowing> data) {
-        data.add(new Borrowing(idManager.nextId(),copyService.get(0),userService.findByUsername("user"), LocalDateTime.now(),LocalDateTime.now()));
+        data.add(new Borrowing(idManager.nextId(),copyService.get(1),userService.findByUsername("user"), LocalDateTime.now(),LocalDateTime.now()));
     }
 
     @Autowired

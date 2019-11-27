@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class AbstractService<T extends IMapable> implements IService<T> {
 
-    private MapRepository repository;
+    private MapRepository<T> repository;
 
     public AbstractService(MapRepository<T> repository) {
         this.repository = repository;
@@ -27,6 +27,6 @@ public abstract class AbstractService<T extends IMapable> implements IService<T>
 
     @Override
     public T get(int id) { //TODO:Nie dziala jest null
-        return (T) repository.get(id);
+        return repository.get(id);
     }
 }

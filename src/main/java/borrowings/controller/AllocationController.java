@@ -32,7 +32,7 @@ public class AllocationController {
     public String viewAllAllocations (Model model) {
         ArrayList<Borrowing> allocations = service.getAll();
         model.addAttribute("allocations", allocations);
-        System.out.println(allocations.get(0).getItem().getTitle());
+        //System.out.println(allocations.get(0).getItem().getTitle());
         return "all-allocations";
     }
 }

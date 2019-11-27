@@ -56,5 +56,20 @@ class JUnitTestCase {
         assertTrue(b1.equals(b2));
     }
 
+    @Test
+    @DisplayName("Repo test")
+    void repo() {
+        TestMapRepository repo = new TestMapRepository(data -> {});
+        assertEquals(0, repo.getAll().size());
+        repo.add(new TestMappable(1));
+        assertEquals(1, repo.getAll().get(0).getId());
+        assertEquals(1, repo.get(1).getId());
+        ArrayList<TestMappable> arrayList = repo.getAll();
+        assertEquals(arrayList.size(), repo.getAll().size());
+        assertEquals(arrayList.get(0).getId(), repo.get(1).getId());
+
+    }
+
+
     }
 
