@@ -11,6 +11,7 @@ public class MockUserProvider implements IUserProvider {
         HashSet<UserModel> userSet = new HashSet<>();
         userSet.add(new UserModel("admin","admin","ADMIN"));
         userSet.add(new UserModel("user","user","USER"));
+        userSet.add(new UserModel("user2","user","USER"));
         return userSet;
     }
 }

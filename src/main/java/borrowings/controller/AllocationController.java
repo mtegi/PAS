@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 @Controller
@@ -22,9 +23,9 @@ public class AllocationController {
     }
 
     @GetMapping({"/my-allocations"})
-    public String getUserAllocations (Model model) {
-        ArrayList<Borrowing> borrowings = service.getAll();
-        model.addAttribute("borrowings", borrowings);
+    public String getUserAllocations (Model model, Principal principal) {
+        ArrayList<Borrowing> allocations = service.getUserAllocations(principal.getName());
+        model.addAttribute("allocations", allocations);
         return "my-allocations";
     }
 

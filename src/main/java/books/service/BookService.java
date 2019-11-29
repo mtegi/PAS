@@ -3,7 +3,6 @@ package books.service;
 import books.model.Book;
 import books.model.BookRepository;
 import model.AbstractService;
-import model.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +13,9 @@ public class BookService extends AbstractService<Book>  implements IBookService 
     private BookRepository repository;
 
     @Autowired
-    public BookService(MapRepository<Book> repository) {
+    public BookService(BookRepository repository) {
         super(repository);
+        this.repository = repository;
     }
 
     @Override

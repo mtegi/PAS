@@ -16,15 +16,17 @@
         <thead>
         <tr>
             <th scope="col">Id</th>
-            <th scope="col">Book</th>
-            <th scope="col">Borrowed</th>
+            <th scope="col">Title</th>
+            <th scope="col">Start</th>
+            <th scope="col">End</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="copy: ${copies}">
-            <td th:text="${copy.Id}"></td>
-            <td th:text="${copy.book.title}"></td>
-            <td th:text="${copy.borrowed}"></td>
+        <tr th:each="allocation: ${allocations}">
+            <td th:text="${allocation.Id}"></td>
+            <td th:text="${allocation.item.title}"></td>
+            <td th:text="${allocation.startTime}"></td>
+            <td th:text="${allocation.endTime}"></td>
         </tr>
         </tbody>
     </table>
