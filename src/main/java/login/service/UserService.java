@@ -22,8 +22,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserModel findByUsername(String userToDeactivate) {
-        return repository.findByUsername(userToDeactivate);
+    public UserModel findByUsername(String username) {
+        return repository.findByUsername(username);
     }
 
     @Override

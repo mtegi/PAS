@@ -30,7 +30,7 @@ public class BookController {
     }
 
     @GetMapping({"/books"})
-    public String handleGETRequest (Model model) {
+    public String viewAllBooks(Model model) {
         ArrayList<Book> books = bookService.getAll();
         books.sort(new BookCompareByAuthor());
         model.addAttribute("books",books);
@@ -39,7 +39,7 @@ public class BookController {
 
     @PostMapping({"/books"})
     public String filterBooks (@RequestParam(name = "filterStr") String filterStr, Model model) {
-        if(filterStr.contentEquals("")) handleGETRequest(model);
+        if(filterStr.contentEquals("")) viewAllBooks(model);
         ArrayList<Book> books = bookService.getBooksByTitle(filterStr);
         books.sort(new BookCompareByAuthor());
         model.addAttribute("books",books);
@@ -57,7 +57,7 @@ public class BookController {
                 model.addAttribute("errorHappened",true);
                 model.addAttribute("errorMsg", "Book already exists");
             }
-        return handleGETRequest(model);
+        return viewAllBooks(model);
     }
 
     @PostMapping({"/manager/deletebook"})
@@ -67,7 +67,7 @@ public class BookController {
                 model.addAttribute("deleteError", true);
                 model.addAttribute("deleteErrorMsg", "Book not found");
             }
-        return handleGETRequest(model);
+        return viewAllBooks(model);
     }
 
 

@@ -19,7 +19,7 @@ public class Initializer implements WebApplicationInitializer {
         dispatcher.setLoadOnStartup(1);
         //dodajemy sciezki do servletu dispatchera
         dispatcher.addMapping("/");
-        dispatcher.addMapping("/books","/manager/copies","/manager/all-allocations","/my-allocations");
+        dispatcher.addMapping("/books","/manager/copies","/manager/all-allocations","/my-allocations","/borrow");
         dispatcher.addMapping("/login","/register","/admin/manage-users","/access-denied","/manager/addbook","/manager/deletebook");
     }
 

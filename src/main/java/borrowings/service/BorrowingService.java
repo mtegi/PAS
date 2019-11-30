@@ -2,10 +2,12 @@ package borrowings.service;
 
 import borrowings.model.Borrowing;
 import borrowings.model.BorrowingRepository;
+import copies.model.Copy;
 import model.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Service
@@ -21,4 +23,16 @@ public class BorrowingService extends AbstractService<Borrowing> implements IBor
     public ArrayList<Borrowing> getUserAllocations(String username) {
         return repository.getUserAllocations(username);
     }
+
+    @Override
+    public boolean isBorrowed(Copy copy, LocalDateTime start, LocalDateTime end) {
+        Borrowing b = this.getAll().stream().filter(borrowing -> (((borrowing.getEndTime().isAfter(start)) && (borrowing.getItem().getId() == copy.getId())) || (borrowing.getStartTime().isBefore(end) && (borrowing.getItem().getId() == copy.getId())))).findAny().orElse(null);
+        if(b == null) return false;
+        return true;
+    }
+
+    /*@Override
+    public boolean add(Borrowing borrowing){
+        if()
+    }*/
 }

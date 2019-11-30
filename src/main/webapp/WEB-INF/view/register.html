@@ -16,9 +16,6 @@
             <form action="#" th:action="@{/register}" th:object="${newUser}"  method="post">
                 <input type="text" class="form-control form-control-lg" placeholder="Username" name="username" th:required="required" th:autofocus="autofocus" style="margin-bottom: 10px">
                 <input type="password" class="form-control form-control-lg" placeholder="Password" name="password" th:required="required" style="margin-bottom: 10px">
-               <!-- <input type="password" class="form-control form-control-lg" placeholder="Confirm Password" name="cpassword"  th:required="required" style="margin-bottom: 10px">-->
-                <!--<input type="text" th:field="*{username}">
-                <input type="password" th:field="*{password}">-->
                 <input class="btn btn-outline-secondary btn-lg" type="submit" value="Register" style="margin-bottom: 10px;">
             </form>
         </div>

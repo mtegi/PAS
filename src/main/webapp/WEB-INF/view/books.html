@@ -25,8 +25,7 @@
                 <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
             </div>
         </div></form>
-
-    <table class="table table-bordered bg-secondary table-fit fixed-centered">
+    <table class="table table-bordered bg-secondary table-fit">
         <thead>
         <tr>
             <th scope="col">Title</th>
@@ -38,7 +37,13 @@
         <tr th:each="book: ${books}">
             <td th:text="${book.title}"/>
             <td th:text="${book.author.firstName + ' ' + book.author.lastName}" + />
-            <td><button sec:authorize="hasRole('ROLE_USER')" type="button" class="btn btn-primary">Borrow</button>
+            <td>
+                <form sec:authorize="hasRole('ROLE_USER')" class="form-inline" method="post" th:action="@{/borrow}">
+                    <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
+                    <input class="form-control" type="datetime-local" name="startDate" th:required="required">
+                    <input class="form-control" type="datetime-local" name="endDate" th:required="required">
+                    <input class="btn btn-outline-secondary" type="submit" value="Borrow">
+                </form>
                 <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:object="${author}"  th:action="@{/manager/deletebook}"><div>
                     <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
                     <input class="btn btn-outline-secondary" type="submit" value="Delete">
@@ -50,6 +55,12 @@
         </tr>
         </tbody>
     </table>
+    <div class="flex-inline-center-container" th:if="${allocationError}">
+        <span class="alert alert-danger" role="alert" th:text="${allocationErrorMsg}" style="font-weight: bold">Wrong input!</span>
+    </div>
+    <div class="flex-inline-center-container" th:if="${allocationSuccess}">
+        <span class="alert alert-success" role="alert" th:text="${allocationSuccessMsg}" style="font-weight: bold">Success</span>
+    </div>
 </div>
 </body>
 </html>
