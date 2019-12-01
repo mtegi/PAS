@@ -19,6 +19,7 @@
             <th scope="col">Title</th>
             <th scope="col">Start</th>
             <th scope="col">End</th>
+            <th scope="col">Return book</th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +28,10 @@
             <td th:text="${allocation.item.title}"></td>
             <td th:text="${allocation.startTime}"></td>
             <td th:text="${allocation.endTime}"></td>
+            <td><form class="form-inline" method="post" th:action="@{/completeAllocation}">
+                <input class="form-control" type="hidden" name="id" th:value="${allocation.Id}">
+                <input class="btn btn-outline-secondary" type="submit" value="Return">
+            </form></td>
         </tr>
         </tbody>
     </table>

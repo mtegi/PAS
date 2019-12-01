@@ -27,4 +27,10 @@ public class BorrowingRepository extends MapRepository<Borrowing> {
         return ret;
     }
 
+    @Override
+    public boolean add(Borrowing borrowing){
+        borrowing.getItem().setBorrowed(true);
+        return super.add(borrowing);
+    }
+
 }

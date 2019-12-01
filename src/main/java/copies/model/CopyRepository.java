@@ -1,6 +1,5 @@
 package copies.model;
 
-import books.model.Book;
 import books.service.BookService;
 import model.IDataProvider;
 import model.MapRepository;
@@ -18,7 +17,6 @@ public class CopyRepository extends MapRepository<Copy> {
     }
 
     public Copy getCopy(int bookId){
-        Book book = bookService.get(bookId);
-        return container.values().stream().filter(copy -> copy.getBook().getId() == bookId).findAny().orElse(null);
+        return container.values().stream().filter(copy -> copy.getBook().getId() == bookId && !copy.isBorrowed()).findAny().orElse(null);
     }
 }

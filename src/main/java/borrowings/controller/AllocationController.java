@@ -53,6 +53,12 @@ public class AllocationController {
         return "all-allocations";
     }
 
+    @PostMapping({"/completeAllocation"})
+    public String completeAllocation(@RequestParam("id") int id, Model model){
+        borrowingService.completeBorrowing(borrowingService.get(id));
+        return "redirect:/my-allocations";
+    }
+
     @PostMapping({"/borrow"})
     public String borrowBook(@RequestParam("bookId") int bookId, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model, Principal principal){
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
