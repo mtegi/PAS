@@ -6,6 +6,8 @@ import model.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class CopyService extends AbstractService<Copy> implements ICopyService{
 
@@ -20,5 +22,10 @@ public class CopyService extends AbstractService<Copy> implements ICopyService{
     public Copy getCopy(int bookId) {
         Copy ret = repository.getCopy(bookId);
         return ret;
+    }
+
+    @Override
+    public ArrayList<Copy> getCopiesByBookTitle(String title) {
+       return repository.getCopiesByBookTitle(title);
     }
 }

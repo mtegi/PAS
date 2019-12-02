@@ -33,11 +33,6 @@ public class Copy implements IAllocable, IMapable {
     }
 
     @Override
-    public String getType() {
-        return "Book";
-    }
-
-    @Override
     public String getTitle() {
         return this.book.getTitle();
     }
