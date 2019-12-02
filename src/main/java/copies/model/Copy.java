@@ -13,10 +13,12 @@ public class Copy implements IAllocable, IMapable {
     private Book book;
     @NotNull
     private boolean borrowed;
+    private BookType bookType;
 
-    public Copy(int copyID, Book book) {
+    public Copy(int copyID, Book book, BookType bookType) {
         this.copyID = copyID;
         this.book = book;
+        this.setBookType(bookType);
         this.setBorrowed(false);
     }
 
@@ -40,5 +42,13 @@ public class Copy implements IAllocable, IMapable {
     @Override
     public int getId() {
         return copyID;
+    }
+
+    public BookType getBookType() {
+        return bookType;
+    }
+
+    public void setBookType(BookType bookType) {
+        this.bookType = bookType;
     }
 }

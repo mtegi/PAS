@@ -21,6 +21,8 @@
     <tr>
         <th scope="col">Id</th>
         <th scope="col">Book</th>
+        <th scope="col">Type</th>
+        <th scope="col">Length</th>
         <th scope="col">Borrowed</th>
     </tr>
     </thead>
@@ -28,6 +30,10 @@
     <tr th:each="copy: ${copies}">
         <td th:text="${copy.Id}"></td>
         <td th:text="${copy.book.title}"></td>
+        <td th:if="${copy.getBookType() instanceof T(copies.model.PaperBook)}">Paper Book</td>
+        <td th:if="${copy.getBookType() instanceof T(copies.model.AudioBook)}">Audio Book</td>
+        <td th:if="${copy.getBookType() instanceof T(copies.model.PaperBook)}" th:text="${copy.bookType.pages + ' pages'}"></td>
+        <td th:if="${copy.getBookType() instanceof T(copies.model.AudioBook)}" th:text="${copy.bookType.getDurationString()}"></td>
         <td th:text="${copy.borrowed}"></td>
     </tr>
     </tbody>

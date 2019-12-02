@@ -16,15 +16,15 @@ public class MockCopyProvider implements IDataProvider<Copy> {
     private BookService bookService;
     @Override
     public void fill(Collection<Copy> data) {
-        data.add(new Copy(idManager.nextId(), bookService.get(1)));
-        data.add(new Copy(idManager.nextId(), bookService.get(1)));
-        data.add(new Copy(idManager.nextId(), bookService.get(2)));
-        data.add(new Copy(idManager.nextId(), bookService.get(2)));
-        data.add(new Copy(idManager.nextId(), bookService.get(3)));
-        data.add(new Copy(idManager.nextId(), bookService.get(4)));
-        data.add(new Copy(idManager.nextId() ,bookService.get(5)));
-        data.add(new Copy(idManager.nextId(), bookService.get(5)));
-        data.add(new Copy(idManager.nextId(), bookService.get(5)));
+        data.add(new Copy(idManager.nextId(), bookService.get(1), new PaperBook(280)));
+        data.add(new Copy(idManager.nextId(), bookService.get(1), new AudioBook(4 * 60 * 60 * 1000)));
+        data.add(new Copy(idManager.nextId(), bookService.get(2), new PaperBook(450)));
+        data.add(new Copy(idManager.nextId(), bookService.get(2), new PaperBook(522)));
+        data.add(new Copy(idManager.nextId(), bookService.get(3), new AudioBook(6 * 60 * 60 * 1000)));
+        data.add(new Copy(idManager.nextId(), bookService.get(4), new PaperBook(436)));
+        data.add(new Copy(idManager.nextId() ,bookService.get(5), new PaperBook(686)));
+        data.add(new Copy(idManager.nextId(), bookService.get(5), new PaperBook(346)));
+        data.add(new Copy(idManager.nextId(), bookService.get(5), new PaperBook(465)));
     }
 
     @Autowired

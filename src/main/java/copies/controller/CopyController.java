@@ -1,6 +1,7 @@
 package copies.controller;
 
 import copies.model.Copy;
+import copies.model.PaperBook;
 import copies.service.CopyService;
 import copies.utils.CopyIdManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,10 @@ public class CopyController {
     @GetMapping({"/manager/copies"})
     public String viewAll(Model model) {
         ArrayList<Copy> copies = copyService.getAll();
+        PaperBook paperBook = (PaperBook) copies.get(0).getBookType();
+        System.out.println(paperBook.getPages());
         model.addAttribute("copies", copies);
+        model.addAttribute("book",paperBook);
         return "copies";
     }
 
