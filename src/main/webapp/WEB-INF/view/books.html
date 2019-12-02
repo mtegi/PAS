@@ -30,6 +30,8 @@
         <tr>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">Stock</th>
+            <th sec:authorize="isAuthenticated()" scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -37,6 +39,7 @@
         <tr th:each="book: ${books}">
             <td th:text="${book.title}"/>
             <td th:text="${book.author.firstName + ' ' + book.author.lastName}" + />
+            <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${service.count(book)}"></td>
             <td>
                 <form sec:authorize="hasRole('ROLE_USER')" class="form-inline" method="post" th:action="@{/borrow}">
                     <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">

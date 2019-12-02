@@ -1,5 +1,6 @@
 package copies.service;
 
+import books.model.Book;
 import copies.model.Copy;
 import copies.model.CopyRepository;
 import model.AbstractService;
@@ -27,5 +28,9 @@ public class CopyService extends AbstractService<Copy> implements ICopyService{
     @Override
     public ArrayList<Copy> getCopiesByBookTitle(String title) {
        return repository.getCopiesByBookTitle(title);
+    }
+
+    public long count(Book book){
+       return repository.getAll().stream().filter(copy -> copy.getBook().getId() == book.getId()).count();
     }
 }

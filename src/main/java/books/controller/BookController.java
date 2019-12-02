@@ -5,6 +5,7 @@ import books.model.Book;
 import books.service.BookService;
 import books.utils.BookCompareByAuthor;
 import books.utils.BookIdManager;
+import copies.service.CopyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +23,13 @@ public class BookController {
 
     private BookIdManager idManager;
     private BookService bookService;
+    private CopyService copyService;
 
     @Autowired
-    public BookController(BookService bookService, BookIdManager idManager) {
+    public BookController(BookService bookService, CopyService copyService, BookIdManager idManager) {
         this.bookService = bookService;
         this.idManager = idManager;
+        this.copyService = copyService;
     }
 
     @GetMapping({"/books"})
@@ -34,6 +37,7 @@ public class BookController {
         ArrayList<Book> books = bookService.getAll();
         books.sort(new BookCompareByAuthor());
         model.addAttribute("books",books);
+        model.addAttribute("service", copyService);
         return "books";
     }
 
@@ -43,6 +47,7 @@ public class BookController {
         ArrayList<Book> books = bookService.getBooksByTitle(filterStr);
         books.sort(new BookCompareByAuthor());
         model.addAttribute("books",books);
+        model.addAttribute("service", copyService);
         return "books";
     }
 
