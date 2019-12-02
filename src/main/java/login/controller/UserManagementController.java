@@ -10,11 +10,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Controller
 public class UserManagementController {
 
     private IUserService userService;
+    private final String ROLE_USER;
+    private final String ROLE_DEACTIVATED;
+
+    {
+        ROLE_USER = "USER";
+        ROLE_DEACTIVATED = "DEACTIVATED";
+    }
 
     @Autowired
     public UserManagementController(IUserService userService) {
@@ -35,9 +43,13 @@ public class UserManagementController {
             model.addAttribute("errorHappened",true);
             model.addAttribute("errorMsg", "User not found");
         }
+        else if(Arrays.stream(user.getRoles()).filter(s -> s.contentEquals(ROLE_DEACTIVATED)).findAny().orElse(null) != null){
+            model.addAttribute("errorHappened",false);
+            user.setRoles(ROLE_USER);
+        }
         else{
             model.addAttribute("errorHappened",false);
-            user.setRoles("DEACTIVATED");
+            user.setRoles(ROLE_DEACTIVATED);
         }
         return handleGetRequest(model);
     }
