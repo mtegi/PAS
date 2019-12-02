@@ -17,10 +17,7 @@ public class Initializer implements WebApplicationInitializer {
         servletContext.addListener(new ContextLoaderListener(context));
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("DispatcherServlet", new DispatcherServlet(context));
         dispatcher.setLoadOnStartup(1);
-        //dodajemy sciezki do servletu dispatchera
         dispatcher.addMapping("/");
-        dispatcher.addMapping("/books","/manager/copies","/manager/all-allocations","/my-allocations","/borrow","/completeAllocation");
-        dispatcher.addMapping("/login","/register","/admin/manage-users","/access-denied","/manager/addbook","/manager/deletebook");
     }
 
     private AnnotationConfigWebApplicationContext getContext() {
