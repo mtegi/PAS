@@ -12,10 +12,15 @@
     </head>
 <body>
 <div layout:fragment="content">
+    <form class="form-inline" method="post" th:action="@{/manager/all-allocations}"><div>
+        <input class="form-control" type="text" name="filterStr" placeholder="Item Id or Title">
+        <input class="btn btn-outline-secondary" type="submit" value="Filter">
+    </div></form>
     <table class="table table-bordered bg-secondary table-fit fixed-centered">
         <thead>
         <tr>
             <th scope="col">Id</th>
+            <th scope="col">Item Id</th>
             <th scope="col">User</th>
             <th scope="col">Title</th>
             <th scope="col">Start</th>
@@ -25,6 +30,7 @@
         <tbody>
         <tr th:each="allocation: ${allocations}">
             <td th:text="${allocation.Id}"></td>
+            <td th:text="${allocation.item.Id}"></td>
             <td th:text="${allocation.owner.username}"></td>
             <td th:text="${allocation.item.title}"></td>
             <td th:text="${allocation.startTime}"></td>

@@ -28,7 +28,6 @@ public class CopyController {
     public String viewAll(Model model) {
         ArrayList<Copy> copies = copyService.getAll();
         PaperBook paperBook = (PaperBook) copies.get(0).getBookType();
-        System.out.println(paperBook.getPages());
         model.addAttribute("copies", copies);
         model.addAttribute("book",paperBook);
         return "copies";
