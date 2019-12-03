@@ -26,6 +26,12 @@ public class CopyService extends AbstractService<Copy> implements ICopyService{
     }
 
     @Override
+    public Copy getCopy(int bookId, String type) {
+        Copy ret = repository.getCopy(bookId, type);
+        return ret;
+    }
+
+    @Override
     public ArrayList<Copy> getCopiesByBookTitle(String title) {
        return repository.getCopiesByBookTitle(title);
     }

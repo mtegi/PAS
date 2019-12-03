@@ -172,3 +172,12 @@ table.table-fit tbody td, table.table-fit tfoot td {
     font-weight: bold;
     font-size: 5rem;
 }
+
+.dropdown-input-container > .dropdown-menu{
+     position: relative;
+ }
+
+.dropdown-input-container > .open >.dropdown-menu{
+    display: flex;
+    flex-direction: column;
+}

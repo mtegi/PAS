@@ -45,7 +45,15 @@
                     <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
                     <input class="form-control" type="datetime-local" name="startDate" th:required="required">
                     <input class="form-control" type="datetime-local" name="endDate" th:required="required">
-                    <input class="btn btn-outline-secondary" type="submit" value="Borrow">
+                    <div class="dropdown-input-container">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type</button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <input class="form-control dropdown-item" type="radio" name="type" value="PaperBook" th:required="required">Paper
+                                <input class="form-control dropdown-item" type="radio" name="type" value="AudioBook" th:required="required">Audiobook
+                            </div>
+                        </div>
+                        <input class="btn btn-outline-secondary" type="submit" value="Borrow">
+
                 </form>
                 <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:object="${author}"  th:action="@{/manager/deletebook}"><div>
                     <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">

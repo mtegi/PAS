@@ -60,7 +60,13 @@ public class AllocationController {
     }
 
     @PostMapping({"/borrow"})
-    public String borrowBook(@RequestParam("bookId") int bookId, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model, Principal principal){
+    public String borrowBook(
+            @RequestParam("bookId") int bookId,
+            @RequestParam("startDate") String startDate,
+            @RequestParam("endDate") String endDate,
+            @RequestParam("type") String type,
+            Model model, Principal principal){
+
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
         model.addAttribute("allocationError", false);
         model.addAttribute("allocationSuccess", false);
@@ -74,7 +80,8 @@ public class AllocationController {
             model.addAttribute("allocationErrorMsg", "Parse exception:" + e.getMessage());
             return bookController.viewAllBooks(model);
         }
-        Copy copy = copyService.getCopy(bookId);
+
+        Copy copy = copyService.getCopy(bookId, type);
         if(copy == null || borrowingService.isBorrowed(copy,startTime,endTime)){
             model.addAttribute("allocationError", true);
             model.addAttribute("allocationErrorMsg", "No copy available right now");

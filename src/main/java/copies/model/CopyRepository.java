@@ -24,6 +24,10 @@ public class CopyRepository extends MapRepository<Copy> {
         return container.values().stream().filter(copy -> copy.getBook().getId() == bookId && !copy.isBorrowed()).findAny().orElse(null);
     }
 
+    public Copy getCopy(int bookId, String type) {
+        return container.values().stream().filter(copy -> copy.getBook().getId() == bookId && !copy.isBorrowed() && type.contentEquals(copy.getBookType().getClass().getSimpleName())).findAny().orElse(null);
+    }
+
     public ArrayList<Copy> getCopiesByBookTitle(String title){
         ArrayList<Copy> ret = new ArrayList<>();
         Collection<Copy> values = container.values();
