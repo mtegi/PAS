@@ -4,8 +4,8 @@ import allocations.model.Allocation;
 import allocations.service.AllocationService;
 import allocations.utils.AllocationIdManager;
 import books.controller.BookController;
-import copies.model.Copy;
-import copies.service.ICopyService;
+import items.copies.model.Copy;
+import items.copies.service.CopyService;
 import login.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,11 +27,11 @@ public class AllocationController {
     private AllocationIdManager idManager;
     private AllocationService allocationService;
     private IUserService userService;
-    private ICopyService copyService;
+    private CopyService copyService;
     private BookController bookController;
 
     @Autowired
-    public AllocationController(AllocationService allocationService, IUserService userService, ICopyService copyService, BookController bookController, AllocationIdManager idManager) {
+    public AllocationController(AllocationService allocationService, IUserService userService, CopyService copyService, BookController bookController, AllocationIdManager idManager) {
         this.allocationService = allocationService;
         this.userService = userService;
         this.copyService = copyService;
@@ -98,7 +98,7 @@ public class AllocationController {
             model.addAttribute("allocationError", true);
             model.addAttribute("allocationErrorMsg", "Wrong date!");
         }
-       else if(!allocationService.add(new Allocation(idManager.nextId(),copy,userService.findByUsername(principal.getName()),startTime,endTime))) {
+       else if(!allocationService.add(new Allocation(idManager.nextId(), copy,userService.findByUsername(principal.getName()),startTime,endTime))) {
             model.addAttribute("allocationError", true);
             model.addAttribute("allocationErrorMsg", "Loan failed");
         } else {

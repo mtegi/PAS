@@ -16,7 +16,7 @@ class JUnitTestCase {
         @DisplayName("Filter books by title")
         void filterBookTest() {
             BookRepository repository = new BookRepository(new TestBookProvider());
-            ArrayList<Book> ret = new ArrayList<>(repository.getBooksByTitle("miecz"));
+            ArrayList<Book> ret = new ArrayList<>(repository.getEntitiesByTitle("miecz"));
             assertEquals(2,ret.size());
         }
 

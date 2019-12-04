@@ -49,7 +49,6 @@ public class AllocationRepository extends MapRepository<Allocation> {
 
     @Override
     public boolean add(Allocation allocation){
-        allocation.getItem().setBorrowed(true);
         return super.add(allocation);
     }
 

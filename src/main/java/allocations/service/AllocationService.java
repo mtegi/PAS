@@ -2,7 +2,7 @@ package allocations.service;
 
 import allocations.model.Allocation;
 import allocations.model.AllocationRepository;
-import copies.model.Copy;
+import items.copies.model.Copy;
 import model.AbstractService;
 import model.IAllocable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class AllocationService extends AbstractService<Allocation> implements IA
     public boolean completeBorrowing(Allocation allocation) {
         IAllocable item = allocation.getItem();
         if(repository.delete(allocation.getId())){
-            item.setBorrowed(false);
+
             return true;
         }
         return false;

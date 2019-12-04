@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{layouts/main}">
+<head>
+    <head>
+        <title>Films</title>
+    </head>
+<body>
+<div layout:fragment="content">
+    <form class="form-inline" method="post" th:action="@{/films}"><div>
+        <input class="form-control" type="text" name="filterStr" placeholder="Title">
+        <input class="btn btn-outline-secondary" type="submit" value="Filter">
+    </div></form>
+    <form sec:authorize="hasRole('ROLE_ADMIN')" class = "form-row" method="post" th:object="${author}" th:action="@{/manager/addfilm}"><div>
+        <input class="form-control" type="text" name="title" placeholder="Title">
+        <input class="form-control" type="text" name="firstName" placeholder="Director's firstname">
+        <input class="form-control" type="text" name="lastName" placeholder="Director's lastname">
+        <input class="form-control" type="number" name="release" placeholder="Release">
+        <input class="btn btn-outline-secondary" type="submit" value="Add">
+        <div class="flex-inline-center-container">
+            <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
+        </div>
+    </div></form>
+    <table class="table table-bordered bg-secondary table-fit">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Director</th>
+            <th scope="col">Release</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">Stock</th>
+            <th sec:authorize="isAuthenticated()" scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="film: ${films}">
+            <td th:text="${film.title}"></td>
+            <td th:text="${film.director.firstName + ' ' + film.director.lastName}" +></td>
+            <td th:text="${film.getReleaseDate()}"></td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${service.count(film)}"></td>
+            <td>
+                <form sec:authorize="hasRole('ROLE_USER')" class="form-inline" method="post" th:action="@{/borrowFilm}">
+                    <input class="form-control" type="hidden" name="Id" th:value="${film.Id}">
+                    <input class="form-control" type="datetime-local" name="startDate" th:required="required">
+                    <input class="form-control" type="datetime-local" name="endDate" th:required="required">
+                    <input class="btn btn-outline-secondary" type="submit" value="Borrow">
+                </form>
+                <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:object="${author}"  th:action="@{/manager/deletefilm}"><div>
+                    <input class="form-control" type="hidden" name="Id" th:value="${film.Id}">
+                    <input class="btn btn-outline-secondary" type="submit" value="Delete">
+                    <div class="flex-inline-center-container" th:if="${deleteError}">
+                        <span class="alert alert-danger" role="alert" th:text="${deleteErrorMsg}" style="font-weight: bold">Wrong input!</span>
+                    </div>
+                </div></form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="flex-inline-center-container" th:if="${allocationError}">
+        <span class="alert alert-danger" role="alert" th:text="${allocationErrorMsg}" style="font-weight: bold">Wrong input!</span>
+    </div>
+    <div class="flex-inline-center-container" th:if="${allocationSuccess}">
+        <span class="alert alert-success" role="alert" th:text="${allocationSuccessMsg}" style="font-weight: bold">Success</span>
+    </div>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package copies.model;
+package items.copies.model;
 
 public class PaperBook implements BookType {
     private int pages;

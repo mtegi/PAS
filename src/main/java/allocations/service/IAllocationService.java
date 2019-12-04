@@ -1,7 +1,7 @@
 package allocations.service;
 
 import allocations.model.Allocation;
-import copies.model.Copy;
+import items.copies.model.Copy;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

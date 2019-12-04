@@ -1,4 +1,4 @@
-package copies.model;
+package items.copies.model;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
 

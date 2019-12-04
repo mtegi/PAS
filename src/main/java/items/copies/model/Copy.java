@@ -1,37 +1,29 @@
-package copies.model;
+package items.copies.model;
 
 import books.model.Book;
 import model.IAllocable;
+import model.ICopy;
 import model.IMapable;
 
 import javax.validation.constraints.NotNull;
 
-public class Copy implements IAllocable, IMapable {
+public class Copy implements IAllocable, IMapable, ICopy<Book> {
     @NotNull
     private int copyID;
     @NotNull
     private Book book;
-    @NotNull
-    private boolean borrowed;
+
     private BookType bookType;
 
     public Copy(int copyID, Book book, BookType bookType) {
         this.copyID = copyID;
         this.book = book;
         this.setBookType(bookType);
-        this.setBorrowed(false);
     }
 
-    public Book getBook() {
+    @Override
+    public Book getEntity() {
         return book;
-    }
-
-    public boolean isBorrowed() {
-        return borrowed;
-    }
-
-    public void setBorrowed(boolean borrowed) {
-        this.borrowed = borrowed;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package allocations.model;
 
-import copies.service.CopyService;
+import items.copies.service.CopyService;
 import login.service.UserService;
 import model.IDataProvider;
 import model.IIdManager;
@@ -21,7 +21,7 @@ public class MockAllocationProvider implements IDataProvider<Allocation> {
 
     @Override
     public void fill(Collection<Allocation> data) {
-        data.add(new Allocation(idManager.nextId(),copyService.get(1),userService.findByUsername("user"), LocalDateTime.now(),LocalDateTime.now()));
+        data.add(new Allocation(idManager.nextId(),copyService.getCopy(1), userService.findByUsername("user"), LocalDateTime.now(),LocalDateTime.now()));
     }
 
     @Autowired

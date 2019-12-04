@@ -1,4 +1,4 @@
-package copies.utils;
+package items.utils;
 
 import model.IIdManager;
 import org.springframework.beans.factory.annotation.Qualifier;

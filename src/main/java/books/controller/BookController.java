@@ -5,7 +5,7 @@ import books.model.Book;
 import books.service.BookService;
 import books.utils.BookCompareByAuthor;
 import books.utils.BookIdManager;
-import copies.service.CopyService;
+import items.copies.service.CopyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +44,7 @@ public class BookController {
     @PostMapping({"/books"})
     public String filterBooks (@RequestParam(name = "filterStr") String filterStr, Model model) {
         if(filterStr.contentEquals("")) viewAllBooks(model);
-        ArrayList<Book> books = bookService.getBooksByTitle(filterStr);
+        ArrayList<Book> books = bookService.getEntitiesByTitle(filterStr);
         books.sort(new BookCompareByAuthor());
         model.addAttribute("books",books);
         model.addAttribute("service", copyService);
