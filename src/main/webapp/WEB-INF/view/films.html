@@ -49,8 +49,8 @@
                     <input class="form-control" type="datetime-local" name="endDate" th:required="required">
                     <input class="btn btn-outline-secondary" type="submit" value="Borrow">
                 </form>
-                <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:object="${author}"  th:action="@{/manager/deletefilm}"><div>
-                    <input class="form-control" type="hidden" name="Id" th:value="${film.Id}">
+                <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:action="@{/manager/deletefilm}"><div>
+                    <input class="form-control" type="hidden" name="filmId" th:value="${film.Id}">
                     <input class="btn btn-outline-secondary" type="submit" value="Delete">
                     <div class="flex-inline-center-container" th:if="${deleteError}">
                         <span class="alert alert-danger" role="alert" th:text="${deleteErrorMsg}" style="font-weight: bold">Wrong input!</span>

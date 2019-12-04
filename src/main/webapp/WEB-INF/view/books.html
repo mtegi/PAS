@@ -55,7 +55,7 @@
                         <input class="btn btn-outline-secondary" type="submit" value="Borrow">
 
                 </form>
-                <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:object="${author}"  th:action="@{/manager/deletebook}"><div>
+                <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:action="@{/manager/deletebook}"><div>
                     <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
                     <input class="btn btn-outline-secondary" type="submit" value="Delete">
                     <div class="flex-inline-center-container" th:if="${deleteError}">
