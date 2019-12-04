@@ -16,9 +16,20 @@ public class CopyService extends AbstractCopyService<Copy>  {
         this.repository = repository;
     }
 
-    public Copy getCopy(int bookId, String type) {
-        Copy ret = repository.getCopy(bookId, type);
+
+    public Copy getCopy(int copyId, String type) {
+        Copy ret = repository.getCopy(copyId, type);
         return ret;
+    }
+
+    public boolean addCopy(Copy copy)
+    {
+        return repository.add(copy);
+    }
+
+    public boolean deleteCopy(int copyId)
+    {
+        return repository.delete(copyId);
     }
 
 }

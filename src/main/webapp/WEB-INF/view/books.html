@@ -48,12 +48,18 @@
                     <div class="dropdown-input-container">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type</button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <input class="form-control dropdown-item" type="radio" name="type" value="PaperBook" th:required="required">Paper
+                                <input class="form-control dropdown-item" type="radio" name="type" value="PaperBook"  checked="checked" th:required="required">Paper
                                 <input class="form-control dropdown-item" type="radio" name="type" value="AudioBook" th:required="required">Audiobook
                             </div>
                         </div>
                         <input class="btn btn-outline-secondary" type="submit" value="Borrow">
 
+                </form>
+                <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post"  th:action="@{/manager/addCopy}">
+                    <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
+                        <input class="form-control dropdown-item" type="radio" name="type" value="PAPERBOOK"  checked="checked" th:required="required">Paper
+                        <input class="form-control dropdown-item" type="radio" name="type" value="AUDIOBOOK" th:required="required">Audiobook
+                    <input class="btn btn-outline-secondary" type="submit" value="AddCopy">
                 </form>
                 <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:action="@{/manager/deletebook}"><div>
                     <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
