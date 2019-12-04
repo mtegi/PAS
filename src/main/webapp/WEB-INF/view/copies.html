@@ -29,10 +29,10 @@
     <tr th:each="copy: ${copies}">
         <td th:text="${copy.Id}"></td>
         <td th:text="${copy.getTitle()}"></td>
-        <td th:if="${copy.getBookType() instanceof T(copies.model.PaperBook)}">Paper Book</td>
-        <td th:if="${copy.getBookType() instanceof T(copies.model.AudioBook)}">Audio Book</td>
-        <td th:if="${copy.getBookType() instanceof T(copies.model.PaperBook)}" th:text="${copy.bookType.pages + ' pages'}"></td>
-        <td th:if="${copy.getBookType() instanceof T(copies.model.AudioBook)}" th:text="${copy.bookType.getDurationString()}"></td>
+        <td th:if="${copy.getBookType() instanceof T(items.copies.model.PaperBook)}">Paper Book</td>
+        <td th:if="${copy.getBookType() instanceof T(items.copies.model.AudioBook)}">Audio Book</td>
+        <td th:if="${copy.getBookType() instanceof T(items.copies.model.PaperBook)}" th:text="${copy.bookType.pages + ' pages'}"></td>
+        <td th:if="${copy.getBookType() instanceof T(items.copies.model.AudioBook)}" th:text="${copy.bookType.getDurationString()}"></td>
     </tr>
     </tbody>
 </table>
