@@ -32,15 +32,21 @@
             <td th:if="${allocation.item instanceof T(items.copies.model.Copy)}" th:text="${allocation.item.getBookType().getClass().getSimpleName()}"></td>
             <td th:text="${allocation.getStartDateString()}"></td>
             <td th:text="${allocation.getEndDateString()}"></td>
-            <td th:if="${allocation.isFinished() == false}" th:text="ongoing"></td>
-            <td th:if="${allocation.isFinished() == true}" th:text="finished"></td>
-            <td th:if="${allocation.isFinished() == false}" th:text="Tbd"></td>
-            <td th:if="${allocation.isFinished() == true}" th:text="${allocation.getReturnDateString()}"></td>
-            <td th:if="${allocation.isFinished() == false}"><form class="form-inline" method="post" th:action="@{/completeAllocation}">
+            <div class="allocation-status">
+              <td th:if="${allocation.isFinished() == false}" th:text="ongoing"></td>
+              <td th:if="${allocation.isFinished() == true}" th:text="finished"></td>
+            </div>
+            <div class="allocation-return-date">
+             <td th:if="${allocation.isFinished() == false}" th:text="Tbd"></td>
+              <td th:if="${allocation.isFinished() == true}" th:text="${allocation.getReturnDateString()}"></td>
+            </div>
+            <div class="allocation-return-action">
+             <td th:if="${allocation.isFinished() == false}"><form class="form-inline" method="post" th:action="@{/completeAllocation}">
               <input class="form-control" type="hidden" name="id" th:value="${allocation.Id}">
               <input class="btn btn-outline-secondary" type="submit" value="Return">
-          </form></td>
+             </form></td>
             <td th:if="${allocation.isFinished() == true}" th:text="Done"></td>
+            </div>
         </tr>
         </tbody>
     </table>

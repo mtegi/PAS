@@ -44,4 +44,11 @@ public class Copy implements IAllocable, IMapable, ICopy<Book> {
     public void setBookType(BookType bookType) {
         this.bookType = bookType;
     }
+
+    @Override
+    public void setEntity(Book book){
+        this.book=book;
+    }
+
+
 }

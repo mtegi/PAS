@@ -68,10 +68,15 @@ public class BookController {
     @PostMapping({"/manager/deletebook"})
     public  String deleteBook(@RequestParam("bookId") int bookId, Model model){
             model.addAttribute("deleteError",false);
+
             if(!bookService.remove(bookId)) {
                 model.addAttribute("deleteError", true);
                 model.addAttribute("deleteErrorMsg", "Book not found");
             }
+
+            copyService.replaceBookWithNull(bookId,bookService.getEmptyBook());
+
+
         return viewAllBooks(model);
     }
 

@@ -37,14 +37,19 @@
     </head>
 <body>
 <div layout:fragment="content">
+
+    <div class="flex-inline-center-container" th:if="${deleteError}">
+        <span class="alert alert-danger" role="alert" th:text="${deleteErrorMsg}" style="font-weight: bold">Delete error</span>
+    </div>
+
     <form class="form-inline" method="post" th:action="@{/manager/copies}"><div>
         <input class="form-control" type="text" name="filterStr" placeholder="Title">
         <input class="btn btn-outline-secondary" type="submit" value="Filter">
     </div></form>
     <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post"  th:action="@{/manager/addCopy}">
         <input class="form-control" type="number" name="bookId"  th:required="required"  placeholder="BookId">
-        <input id="text-input-paper" class="form-control" type="number" name="lenght-pages"  th:required="required" placeholder="Number of pages">
-        <input id="text-input-audio" class="form-control" type="text" name="lenght-time" placeholder="time (HH:mm:ss)" th:required="required" style="display: none">
+        <input id="text-input-paper" class="form-control" type="number" name="lenght-pages"  th:required="required" placeholder="Number of pages" >
+        <input id="text-input-audio" class="form-control" type="text" name="lenght-time" placeholder="time (HH:mm:ss)" th:required="required" style="display: none" value="00:00:00">
         <input id="radio-button-paper" class="form-control dropdown-item" type="radio" onclick="showPaper()" name="type" value="PAPERBOOK" checked="checked"  >Paper
         <input id="radio-button-audio" class="form-control dropdown-item" type="radio" onclick="showAudio()" name="type" value="AUDIOBOOK"  >Audiobook
         <input class="btn btn-outline-secondary" type="submit" value="AddCopy">
@@ -73,9 +78,6 @@
         <td><form  sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:action="@{/manager/deleteCopy}">
             <input class="form-control" type="hidden" name="id" th:value="${copy.Id}">
             <input class="btn btn-outline-secondary" type="submit" value="Delete">
-            <div class="flex-inline-center-container" th:if="${deleteError}">
-                <span class="alert alert-danger" role="alert" th:text="${deleteErrorMsg}" style="font-weight: bold">Delete error</span>
-            </div>
         </form></td>
     </tr>
     </tbody>

@@ -31,7 +31,7 @@ public class AllocationService extends AbstractService<Allocation> implements IA
     }
 
     @Override
-    public boolean isBorrowed(Copy copy, LocalDateTime start, LocalDateTime end) {
+    public boolean isBorrowed(IAllocable copy, LocalDateTime start, LocalDateTime end) {
         Allocation b = this.getAll().stream().filter(borrowing -> (((borrowing.getEndTime().isAfter(start)) && (borrowing.getItem().getId() == copy.getId())) || (borrowing.getStartTime().isBefore(end) && (borrowing.getItem().getId() == copy.getId())))).findAny().orElse(null);
         return b != null;
     }
@@ -42,5 +42,8 @@ public class AllocationService extends AbstractService<Allocation> implements IA
        allocation.finish();
        return allocation.isFinished();
     }
+
+
+
 
 }

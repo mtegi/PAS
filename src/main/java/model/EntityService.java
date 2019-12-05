@@ -14,4 +14,11 @@ public abstract class EntityService<T extends IEntity & IMapable> extends Abstra
         return repository.getEntitiesByTitle(filterStr);
     }
 
+    public T getEmptyEntity()
+    {
+        return  repository.getEmptyEntity();
+    }
+
+
+
 }

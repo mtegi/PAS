@@ -9,4 +9,12 @@ public class FilmRepository extends EntityRepository<Film> {
     public FilmRepository(IDataProvider<Film> provider) {
         super(provider);
     }
+
+
+    //ToDo: Immplement this
+    @Override
+    public Film getEmptyEntity() {
+        return null;
+    }
+
 }

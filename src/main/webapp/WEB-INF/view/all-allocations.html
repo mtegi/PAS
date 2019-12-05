@@ -25,6 +25,8 @@
             <th scope="col">Title</th>
             <th scope="col">Start</th>
             <th scope="col">End</th>
+            <th scope="col">status</th>
+            <th scope="col">Return Date</th>
         </tr>
         </thead>
         <tbody>
@@ -33,8 +35,16 @@
             <td th:text="${allocation.item.Id}"></td>
             <td th:text="${allocation.owner.username}"></td>
             <td th:text="${allocation.item.title}"></td>
-            <td th:text="${allocation.startTime}"></td>
-            <td th:text="${allocation.endTime}"></td>
+            <td th:text="${allocation.getStartDateString()}"></td>
+            <td th:text="${allocation.getEndDateString()}"></td>
+            <div>
+                <td th:if="${allocation.isFinished() == false}" th:text="ongoing"></td>
+                <td th:if="${allocation.isFinished() == true}" th:text="finished"></td>
+            </div>
+            <div class="allocation-return-date">
+                <td th:if="${allocation.isFinished() == false}" th:text="Tbd"></td>
+                <td th:if="${allocation.isFinished() == true}" th:text="${allocation.getReturnDateString()}"></td>
+            </div>
         </tr>
         </tbody>
     </table>

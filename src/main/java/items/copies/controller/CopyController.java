@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 
 @Controller
@@ -45,7 +47,7 @@ public class CopyController {
     public String deleteCopy (@RequestParam(name = "id") int id, Model model)
     {
         model.addAttribute("deleteError",false);
-        if(! copyService.deleteCopy(id)) {
+        if(! copyService.delete(id)) {
             model.addAttribute("deleteError", true);
             model.addAttribute("deleteErrorMsg", "Error while deleting");
         }
@@ -53,11 +55,24 @@ public class CopyController {
     }
 
     @PostMapping({"/manager/addCopy"})
-    public String addCopy (@RequestParam(name = "bookId") int bookId, @RequestParam(name = "type") String type,
-                           @RequestParam(name = "lenght-pages") int pages, @RequestParam(name = "lenght-time") String time, Model model)
+    public String addCopy (@RequestParam(name = "bookId") int bookId,
+                           @RequestParam(name = "type") String type,
+                           @RequestParam(name = "lenght-pages") int pages,
+                           @RequestParam(name = "lenght-time") String time,
+                           Model model)
     {
-        copyService.addCopy(copyFactory.createCopy(bookId,type,pages,time));
+       model.addAttribute("deleteError",false);
+        try {
+            copyService.add(copyFactory.createCopy(bookId, type, pages, time));
+        }
+        catch( IllegalArgumentException e)
+        {
+            model.addAttribute("deleteError", true);
+            model.addAttribute("deleteErrorMsg", e.getMessage());
+        }
+        finally {
+            return viewAll(model);
+        }
 
-        return viewAll(model);
     }
 }

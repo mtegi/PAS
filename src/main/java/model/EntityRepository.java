@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
-public class EntityRepository<T extends IEntity & IMapable> extends MapRepository<T> {
+public abstract class EntityRepository<T extends IEntity & IMapable> extends MapRepository<T> {
     public EntityRepository(IDataProvider<T> provider) {
         super(provider);
     }
@@ -18,6 +18,9 @@ public class EntityRepository<T extends IEntity & IMapable> extends MapRepositor
         }
         return ret;
     }
+
+    public abstract T getEmptyEntity();
+
 
 
 }

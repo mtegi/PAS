@@ -14,5 +14,8 @@ public class BookService extends EntityService<Book> {
         super(repository);
     }
 
-
+    public Book getEmptyBook()
+    {
+      return this.getEmptyEntity();
+    }
 }
