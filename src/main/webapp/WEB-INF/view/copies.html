@@ -36,7 +36,7 @@
         <td th:if="${copy.getBookType() instanceof T(items.copies.model.PaperBook)}" th:text="${copy.bookType.pages + ' pages'}"></td>
         <td th:if="${copy.getBookType() instanceof T(items.copies.model.AudioBook)}" th:text="${copy.bookType.getDurationString()}"></td>
 
-        <td><form  sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:action="@{/manager/deleteCopy}">
+        <td><form  sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="post" th:action="@{/manager/deleteCopy}">
             <input class="form-control" type="hidden" name="id" th:value="${copy.Id}">
             <input class="btn btn-outline-secondary" type="submit" value="Delete">
             <div class="flex-inline-center-container" th:if="${deleteError}">

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/main}">
+<head>
+    <title>Register</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="login-form">
+        <div class="p2">
+            <p th:text="${'Username: ' + username}"></p>
+            <p>Change password</p>
+            <form th:action="@{/change-password}" th:object="${User}" method="post">
+                <input type="hidden" name="username" th:value="${username}">
+                <input type="password" class="form-control form-control-lg" placeholder="Old Password" name="oldpassword" th:required="required" th:autofocus="autofocus" style="margin-bottom: 10px">
+                <input type="password" class="form-control form-control-lg" placeholder="New Password" name="password" th:required="required" style="margin-bottom: 10px">
+                <input type="password" class="form-control form-control-lg" placeholder="New Password Again" name="password2" th:required="required" style="margin-bottom: 10px">
+                <input class="btn btn-outline-secondary btn-lg" type="submit" value="Change" style="margin-bottom: 10px;">
+            </form>
+        </div>
+        <div class="flex-inline-center-container">
+            <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
+            <span class="alert alert-success" th:if="${passwordChanged}" role="alert" style="font-weight: bold">Password changed</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -32,7 +32,7 @@
             <th scope="col">Title</th>
             <th scope="col">Director</th>
             <th scope="col">Release</th>
-            <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">Stock</th>
+            <th sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" scope="col">Stock</th>
             <th sec:authorize="isAuthenticated()" scope="col">Action</th>
         </tr>
         </thead>
@@ -41,7 +41,7 @@
             <td th:text="${film.title}"></td>
             <td th:text="${film.director.firstName + ' ' + film.director.lastName}" +></td>
             <td th:text="${film.getReleaseDate()}"></td>
-            <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${service.count(film)}"></td>
+            <td sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" th:text="${service.count(film)}"></td>
             <td>
                 <form sec:authorize="hasRole('ROLE_USER')" class="form-inline" method="post" th:action="@{/borrowFilm}">
                     <input class="form-control" type="hidden" name="Id" th:value="${film.Id}">
@@ -49,7 +49,7 @@
                     <input class="form-control" type="datetime-local" name="endDate" th:required="required">
                     <input class="btn btn-outline-secondary" type="submit" value="Borrow">
                 </form>
-                <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:action="@{/manager/deletefilm}"><div>
+                <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="post" th:action="@{/manager/deletefilm}"><div>
                     <input class="form-control" type="hidden" name="filmId" th:value="${film.Id}">
                     <input class="btn btn-outline-secondary" type="submit" value="Delete">
                     <div class="flex-inline-center-container" th:if="${deleteError}">

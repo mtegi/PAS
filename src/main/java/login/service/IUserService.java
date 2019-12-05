@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface IUserService {
     Collection<UserModel> getAll();
-    UserModel findByUsername(String userToDeactivate);
+    UserModel findByUsername(String username);
 
     boolean addUser(UserModel newUser);
 }
