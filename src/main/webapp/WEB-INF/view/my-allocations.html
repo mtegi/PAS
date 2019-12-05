@@ -20,7 +20,9 @@
             <th scope="col">Type</th>
             <th scope="col">Start</th>
             <th scope="col">End</th>
-            <th scope="col">Return book</th>
+            <th scope="col">status</th>
+            <th scope="col">Return Date</th>
+            <th  scope="col">Return book</th>
         </tr>
         </thead>
         <tbody>
@@ -28,12 +30,17 @@
             <td th:text="${allocation.Id}"></td>
             <td th:text="${allocation.item.title}"></td>
             <td th:if="${allocation.item instanceof T(items.copies.model.Copy)}" th:text="${allocation.item.getBookType().getClass().getSimpleName()}"></td>
-            <td th:text="${allocation.startTime}"></td>
-            <td th:text="${allocation.endTime}"></td>
-            <td><form class="form-inline" method="post" th:action="@{/completeAllocation}">
+            <td th:text="${allocation.getStartDateString()}"></td>
+            <td th:text="${allocation.getEndDateString()}"></td>
+            <td th:if="${allocation.isFinished() == false}" th:text="ongoing"></td>
+            <td th:if="${allocation.isFinished() == true}" th:text="finished"></td>
+            <td th:if="${allocation.isFinished() == false}" th:text="Tbd"></td>
+            <td th:if="${allocation.isFinished() == true}" th:text="${allocation.getReturnDateString()}"></td>
+            <td th:if="${allocation.isFinished() == false}"><form class="form-inline" method="post" th:action="@{/completeAllocation}">
               <input class="form-control" type="hidden" name="id" th:value="${allocation.Id}">
               <input class="btn btn-outline-secondary" type="submit" value="Return">
           </form></td>
+            <td th:if="${allocation.isFinished() == true}" th:text="Done"></td>
         </tr>
         </tbody>
     </table>

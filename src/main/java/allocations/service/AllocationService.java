@@ -38,12 +38,9 @@ public class AllocationService extends AbstractService<Allocation> implements IA
 
     @Override
     public boolean completeBorrowing(Allocation allocation) {
-        IAllocable item = allocation.getItem();
-        if(repository.delete(allocation.getId())){
-
-            return true;
-        }
-        return false;
+       allocation.setReturnTime(LocalDateTime.now());
+       allocation.finish();
+       return allocation.isFinished();
     }
 
 }
