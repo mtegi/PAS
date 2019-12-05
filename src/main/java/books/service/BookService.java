@@ -18,4 +18,5 @@ public class BookService extends EntityService<Book> {
     {
       return this.getEmptyEntity();
     }
+
 }

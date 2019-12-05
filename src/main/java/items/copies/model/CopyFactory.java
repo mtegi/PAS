@@ -22,7 +22,11 @@ public class CopyFactory {
         if(bookId <0)
             throw new IllegalArgumentException("Incorrect ID argument");
 
-       switch(CopyType) {
+        if(!bookService.containsId(bookId))
+            throw new IllegalArgumentException("Incorrect ID argument");
+
+
+        switch(CopyType) {
            case "PAPERBOOK":
               return new Copy(idManager.nextId(),bookService.get(bookId),new PaperBook(pages));
            case "AUDIOBOOK":

@@ -19,6 +19,11 @@ public abstract class EntityRepository<T extends IEntity & IMapable> extends Map
         return ret;
     }
 
+    public boolean containtsId ( int entityId)
+    {
+        return container.containsKey(entityId);
+    }
+
     public abstract T getEmptyEntity();
 
 
