@@ -40,6 +40,7 @@ public class Copy implements IAllocable, IMapable, ICopy<Book> {
         return bookType;
     }
 
+
     public void setBookType(BookType bookType) {
         this.bookType = bookType;
     }

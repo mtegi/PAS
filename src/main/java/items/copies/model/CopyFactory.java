@@ -17,13 +17,13 @@ public class CopyFactory {
    BookService bookService;
 
 
-  public Copy createCopy (int bookId, String CopyType, String lenght)
+  public Copy createCopy (int bookId, String CopyType, int pages, String time)
     {
        switch(CopyType) {
            case "PAPERBOOK":
-               return new Copy(idManager.nextId(),bookService.get(bookId),new PaperBook(Integer.parseInt(lenght)));
+               return new Copy(idManager.nextId(),bookService.get(bookId),new PaperBook(pages));
            case "AUDIOBOOK":
-               return new Copy(idManager.nextId(),bookService.get(bookId),new AudioBook(Integer.parseInt(lenght)));
+               return new Copy(idManager.nextId(),bookService.get(bookId),new AudioBook(time));
            default:
                throw  new IllegalArgumentException("Niepoprawny typ kopii");
        }

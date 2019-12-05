@@ -28,6 +28,7 @@
     <table class="table table-bordered bg-secondary table-fit">
         <thead>
         <tr>
+            <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">Id</th>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">Stock</th>
@@ -37,6 +38,7 @@
         <tbody>
         <!--iterujemy po naszych booksach i tworzymy rowy tabeli-->
         <tr th:each="book: ${books}">
+            <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${book.Id}"/>
             <td th:text="${book.title}"/>
             <td th:text="${book.author.firstName + ' ' + book.author.lastName}" + />
             <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${service.count(book)}"></td>
@@ -54,12 +56,6 @@
                         </div>
                         <input class="btn btn-outline-secondary" type="submit" value="Borrow">
 
-                </form>
-                <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post"  th:action="@{/manager/addCopy}">
-                    <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
-                        <input class="form-control dropdown-item" type="radio" name="type" value="PAPERBOOK"  checked="checked" th:required="required">Paper
-                        <input class="form-control dropdown-item" type="radio" name="type" value="AUDIOBOOK" th:required="required">Audiobook
-                    <input class="btn btn-outline-secondary" type="submit" value="AddCopy">
                 </form>
                 <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:action="@{/manager/deletebook}"><div>
                     <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
@@ -79,5 +75,33 @@
         <span class="alert alert-success" role="alert" th:text="${allocationSuccessMsg}" style="font-weight: bold">Success</span>
     </div>
 </div>
+
+<script>
+    var userName = document.getElementById("userName").value;
+    var y = document.getElementById("UserListId");
+
+    if (y.style.display == "none") {
+
+        var hyper = document.createElement("a");
+        var li = document.createElement("li");
+        var textnode = document.createTextNode(userName);
+
+        hyper.setAttribute("href", 'dsa')
+        hyper.appendChild(textnode);
+        li.appendChild(hyper)
+        document.getElementById("TestListId").appendChild(li);
+    } else {
+        var hyper = document.createElement("a");
+        var li = document.createElement("li");
+        var textnode = document.createTextNode(userName);
+
+        hyper.setAttribute("href", 'dsa')
+        hyper.appendChild(textnode);
+        li.appendChild(hyper)
+        document.getElementById("UserListId").appendChild(li);
+    }
+
+</script>
+
 </body>
 </html>

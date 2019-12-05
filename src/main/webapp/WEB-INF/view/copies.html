@@ -6,8 +6,33 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         layout:decorate="~{layouts/main}">
-<head>
+
     <head>
+        <script type="text/javascript">
+            function showPaper() {
+                var paperTextField = document.getElementById("text-input-paper");
+                var audioTextField = document.getElementById("text-input-audio");
+
+                    paperTextField.value = "";
+                    paperTextField.style.display = "inline";
+                    audioTextField.style.display = "none";
+                    audioTextField.value = "00:00:00";
+            }
+
+        </script>
+
+        <script type="text/javascript">
+            function showAudio() {
+                var paperTextField = document.getElementById("text-input-paper");
+                var audioTextField = document.getElementById("text-input-audio");
+
+                paperTextField.value = 0;
+                paperTextField.style.display = "none";
+                audioTextField.value = "" ;
+                audioTextField.style.display = "inline";
+            }
+
+        </script>
         <title>Copies</title>
     </head>
 <body>
@@ -16,12 +41,20 @@
         <input class="form-control" type="text" name="filterStr" placeholder="Title">
         <input class="btn btn-outline-secondary" type="submit" value="Filter">
     </div></form>
+    <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post"  th:action="@{/manager/addCopy}">
+        <input class="form-control" type="number" name="bookId"  th:required="required"  placeholder="BookId">
+        <input id="text-input-paper" class="form-control" type="number" name="lenght-pages"  th:required="required" placeholder="Number of pages">
+        <input id="text-input-audio" class="form-control" type="text" name="lenght-time" placeholder="time (HH:mm:ss)" th:required="required" style="display: none">
+        <input id="radio-button-paper" class="form-control dropdown-item" type="radio" onclick="showPaper()" name="type" value="PAPERBOOK" checked="checked"  >Paper
+        <input id="radio-button-audio" class="form-control dropdown-item" type="radio" onclick="showAudio()" name="type" value="AUDIOBOOK"  >Audiobook
+        <input class="btn btn-outline-secondary" type="submit" value="AddCopy">
+    </form>
 
-
-<table class="table table-bordered bg-secondary table-fit fixed-centered">
+<table class="table table-bordered bg-secondary table-fit">
     <thead>
     <tr>
         <th scope="col">Id</th>
+        <th scope="col">BookId</th>
         <th scope="col">Book</th>
         <th scope="col">Type</th>
         <th scope="col">Length</th>
@@ -30,6 +63,7 @@
     <tbody>
     <tr th:each="copy: ${copies}">
         <td th:text="${copy.Id}"></td>
+        <td th:text="${copy.getEntity().getId()}"></td>
         <td th:text="${copy.getTitle()}"></td>
         <td th:if="${copy.getBookType() instanceof T(items.copies.model.PaperBook)}">Paper Book</td>
         <td th:if="${copy.getBookType() instanceof T(items.copies.model.AudioBook)}">Audio Book</td>
