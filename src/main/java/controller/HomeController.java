@@ -19,6 +19,6 @@ public class HomeController {
         //dodaj atrybuty, mozemy je potem odczytac w htmlu
         model.addAttribute("date", dateFormat.format(date));
         model.addAttribute("msg", "Siemka");
-        return "redirect:/books";
+        return "home";
     }
 }

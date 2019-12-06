@@ -15,6 +15,16 @@ public class AbstractCopyService<T extends IMapable & IAllocable & ICopy> implem
         return ret;
     }
 
+    @Override
+    public boolean add(T copy) {
+        return repository.add(copy);
+    }
+
+    @Override
+    public boolean delete(int copyId) {
+        return repository.delete(copyId);
+    }
+
     public ArrayList<T> getAll(){return repository.getAll();}
 
 

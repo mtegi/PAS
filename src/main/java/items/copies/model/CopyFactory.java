@@ -17,15 +17,25 @@ public class CopyFactory {
    BookService bookService;
 
 
-  public Copy createCopy (int bookId, String CopyType, String lenght)
+  public Copy createCopy (int bookId, String CopyType, int pages, String time)
     {
-       switch(CopyType) {
+        if(bookId <0)
+            throw new IllegalArgumentException("Incorrect ID argument");
+
+        if(!bookService.containsId(bookId))
+            throw new IllegalArgumentException("Incorrect ID argument");
+
+
+        switch(CopyType) {
            case "PAPERBOOK":
-               return new Copy(idManager.nextId(),bookService.get(bookId),new PaperBook(Integer.parseInt(lenght)));
+              return new Copy(idManager.nextId(),bookService.get(bookId),new PaperBook(pages));
            case "AUDIOBOOK":
-               return new Copy(idManager.nextId(),bookService.get(bookId),new AudioBook(Integer.parseInt(lenght)));
+               if(time.matches("^(\\d\\d:\\d\\d:\\d\\d)"))
+               return new Copy(idManager.nextId(),bookService.get(bookId),new AudioBook(time));
+               else
+                   throw new IllegalArgumentException("Incorrect date format");
            default:
-               throw  new IllegalArgumentException("Niepoprawny typ kopii");
+               throw  new IllegalArgumentException("Copy type not recognized");
        }
 
 }

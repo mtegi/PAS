@@ -32,6 +32,11 @@ public class FilmCopy implements IAllocable, IMapable, ICopy<Film> {
         return film;
     }
 
+    @Override
+    public void setEntity(Film entity) {
+        this.film = entity;
+    }
+
     public void setFilm(Film film) {
         this.film = film;
     }

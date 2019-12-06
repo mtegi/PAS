@@ -9,13 +9,38 @@ public class AudioBook implements BookType {
         this.setDuration(durationInMilliseconds);
     }
 
+    public AudioBook(String time)
+    {
+        this.duration = parseString(time);
+    }
+
     public long getDuration() {
         return duration;
     }
 
     public String getDurationString(){
-        String formattedDuration = DurationFormatUtils.formatDuration(this.duration, "H:mm:ss");
-        return formattedDuration;
+
+
+        long millis = duration % 1000;
+        long second = (duration / 1000) % 60;
+        long minute = (duration / (1000 * 60)) % 60;
+        long hour = (duration / (1000 * 60 * 60)) % 24;
+
+        String time = String.format("%02d:%02d:%02d", hour, minute, second);
+
+    return time;
+    }
+
+    private long parseString(String time)
+    {
+        //ToDo: weryfikacja
+        String[] data = time.split(":");
+
+        long hours  = Integer.parseInt(data[0]);
+        long minutes = Integer.parseInt(data[1]);
+        long seconds = Integer.parseInt(data[2]);
+
+        return  (seconds + 60 * minutes + 3600 * hours) * 1000 ;
     }
 
     public void setDuration(long duration) {

@@ -1,10 +1,13 @@
 package items.copies.service;
 
+import books.model.Book;
 import items.copies.model.Copy;
 import items.copies.model.CopyRepository;
 import model.AbstractCopyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class CopyService extends AbstractCopyService<Copy>  {
@@ -22,14 +25,10 @@ public class CopyService extends AbstractCopyService<Copy>  {
         return ret;
     }
 
-    public boolean addCopy(Copy copy)
+    public void replaceBookWithNull ( int bookId, Book nullBook)
     {
-        return repository.add(copy);
+        repository.getCopiesByEntityId(bookId).forEach(copy -> copy.setEntity(nullBook));
     }
 
-    public boolean deleteCopy(int copyId)
-    {
-        return repository.delete(copyId);
-    }
 
 }
