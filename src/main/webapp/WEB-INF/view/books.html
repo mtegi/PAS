@@ -12,36 +12,45 @@
 </head>
 <body>
 <div layout:fragment="content">
+    <div class="flex-inline-center-container" th:if="${allocationError}">
+        <span class="alert alert-danger" role="alert" th:text="${allocationErrorMsg}" style="font-weight: bold">Wrong input!</span>
+    </div>
+    <div class="flex-inline-center-container" th:if="${allocationSuccess}">
+        <span class="alert alert-success" role="alert" th:text="${allocationSuccessMsg}" style="font-weight: bold">Success</span>
+    </div>
+
+    <div class="flex-inline-center-container">
+        <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
+    </div>
+
     <form class="form-inline" method="post" th:action="@{/books}"><div>
         <input class="form-control" type="text" name="filterStr" placeholder="Title">
         <input class="btn btn-outline-secondary" type="submit" value="Filter">
     </div></form>
-        <form sec:authorize="hasRole('ADMIN', 'MANAGER')" class = "form-row" method="post" th:object="${author}" th:action="@{/manager/addbook}"><div>
+        <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class = "form-row" method="post" th:object="${author}" th:action="@{/manager/addbook}"><div>
             <input class="form-control" type="text" name="title" placeholder="Title">
             <input class="form-control" type="text" name="firstName" placeholder="Author's firstname">
             <input class="form-control" type="text" name="lastName" placeholder="Author's lastname">
             <input class="btn btn-outline-secondary" type="submit" value="Add">
-            <div class="flex-inline-center-container">
-                <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
-            </div>
+
         </div></form>
     <table class="table table-bordered bg-secondary table-fit">
         <thead>
         <tr>
-            <th sec:authorize="hasRole('ADMIN', 'MANAGER')" scope="col">Id</th>
+            <th sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" scope="col">Id</th>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
-            <th sec:authorize="hasRole('ADMIN', 'MANAGER')" scope="col">Stock</th>
+            <th sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" scope="col">Stock</th>
             <th sec:authorize="isAuthenticated()" scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
         <!--iterujemy po naszych booksach i tworzymy rowy tabeli-->
         <tr th:each="book: ${books}">
-            <td sec:authorize="hasRole('ADMIN', 'MANAGER')" th:text="${book.Id}"/>
+            <td sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" th:text="${book.Id}"/>
             <td th:text="${book.title}"/>
             <td th:text="${book.author.firstName + ' ' + book.author.lastName}" + />
-            <td sec:authorize="hasRole('ADMIN', 'MANAGER')" th:text="${service.count(book)}"></td>
+            <td sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" th:text="${service.count(book)}"></td>
             <td>
                 <form sec:authorize="hasRole('ROLE_USER')" class="form-inline" method="post" th:action="@{/borrow}">
                     <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
@@ -57,7 +66,7 @@
                         <input class="btn btn-outline-secondary" type="submit" value="Borrow">
 
                 </form>
-                <form sec:authorize="hasRole('ADMIN', 'MANAGER')" class="form-inline" method="post" th:action="@{/manager/deletebook}"><div>
+                <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="post" th:action="@{/manager/deletebook}"><div>
                     <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
                     <input class="btn btn-outline-secondary" type="submit" value="Delete">
                     <div class="flex-inline-center-container" th:if="${deleteError}">
@@ -68,12 +77,6 @@
         </tr>
         </tbody>
     </table>
-    <div class="flex-inline-center-container" th:if="${allocationError}">
-        <span class="alert alert-danger" role="alert" th:text="${allocationErrorMsg}" style="font-weight: bold">Wrong input!</span>
-    </div>
-    <div class="flex-inline-center-container" th:if="${allocationSuccess}">
-        <span class="alert alert-success" role="alert" th:text="${allocationSuccessMsg}" style="font-weight: bold">Success</span>
-    </div>
 </div>
 
 <script>
