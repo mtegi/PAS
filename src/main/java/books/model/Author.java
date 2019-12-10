@@ -21,6 +21,16 @@ public class Author implements Comparable<Author> {
         return lastName;
     }
 
+    public void setFirstName( String firstName)
+    {
+        this.firstName=firstName;
+    }
+
+    public void setLastName (String lastName)
+    {
+        this.lastName= lastName;
+    }
+
 
     @Override
     public boolean equals(Object other) {

@@ -19,12 +19,16 @@ public class MockBookProvider implements IDataProvider<Book> {
 
     @Override
     public void fill(Collection<Book> books) {
-        Author sapek = new Author("Andrzej","Sapkowski");
-        Author dzordz = new Author("Goerge R. R.","Martin");
-        books.add(new Book(idManager.nextId(),"Miecz Przeznaczenia", sapek));
-        books.add(new Book(idManager.nextId(),"Pani Jeziora", sapek));
-        books.add(new Book(idManager.nextId(),"Starcie królów",dzordz));
-        books.add(new Book(idManager.nextId(),"Nawałnica Mieczy",dzordz));
-        books.add(new Book(idManager.nextId(),"Gra o tron",dzordz));
+        Author sapek1 = new Author("Andrzej","Sapkowski");
+        Author sapek2 = new Author("Andrzej","Sapkowski");
+        Author dzordz1 = new Author("Goerge R. R.","Martin");
+        Author dzordz2 = new Author("Goerge R. R.","Martin");
+        Author dzordz3 = new Author("Goerge R. R.","Martin");
+
+        books.add(new Book(idManager.nextId(),"Miecz Przeznaczenia", sapek1));
+        books.add(new Book(idManager.nextId(),"Pani Jeziora", sapek2));
+        books.add(new Book(idManager.nextId(),"Starcie królów",dzordz1));
+        books.add(new Book(idManager.nextId(),"Nawałnica Mieczy",dzordz2));
+        books.add(new Book(idManager.nextId(),"Gra o tron",dzordz3));
     }
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{layouts/main}">
+
+<head>
+    <title>bookEdit</title>
+</head>
+<body>
+<div layout:fragment="content">
+<form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class = "form-row" method="post"  th:action="@{/manager/editbook}"><div>
+    <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
+    <input class="form-control" type="text" name="title" th:placeholder= "${book.title}">
+    <input class="form-control" type="text" name="firstName" th:placeholder="${book.Author.firstName}">
+    <input class="form-control" type="text" name="lastName" th:placeholder="${book.Author.lastName}">
+    <input class="btn btn-outline-secondary" type="submit" value="ok">
+    <a class="btn btn-light" type="button" th:href="@{/books}">cancel</a>
+
+</div></form>
+</div>
+</body>
+</html>

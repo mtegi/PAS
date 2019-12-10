@@ -73,6 +73,10 @@
                         <span class="alert alert-danger" role="alert" th:text="${deleteErrorMsg}" style="font-weight: bold">Wrong input!</span>
                     </div>
                 </div></form>
+                <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="get" th:action="@{/manager/editbook}"><div>
+                    <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
+                    <input class="btn btn-outline-secondary" type="submit" value="edit">
+                </div></form>
             </td>
         </tr>
         </tbody>

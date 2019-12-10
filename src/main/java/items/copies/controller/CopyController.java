@@ -46,10 +46,10 @@ public class CopyController {
     @PostMapping({"/manager/deleteCopy"})
     public String deleteCopy (@RequestParam(name = "id") int id, Model model)
     {
-        model.addAttribute("deleteError",false);
+        model.addAttribute("copyError",false);
         if(! copyService.delete(id)) {
-            model.addAttribute("deleteError", true);
-            model.addAttribute("deleteErrorMsg", "Error while deleting");
+            model.addAttribute("copyError", true);
+            model.addAttribute("copyErrorMsg", "Error while deleting");
         }
         return viewAll(model);
     }
@@ -61,14 +61,14 @@ public class CopyController {
                            @RequestParam(name = "lenght-time") String time,
                            Model model)
     {
-       model.addAttribute("deleteError",false);
+       model.addAttribute("copyError",false);
         try {
             copyService.add(copyFactory.createCopy(bookId, type, pages, time));
         }
         catch( IllegalArgumentException e)
         {
-            model.addAttribute("deleteError", true);
-            model.addAttribute("deleteErrorMsg", e.getMessage());
+            model.addAttribute("copyError", true);
+            model.addAttribute("copyErrorMsg", e.getMessage());
         }
         finally {
             return viewAll(model);

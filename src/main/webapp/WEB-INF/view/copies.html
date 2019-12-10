@@ -38,8 +38,8 @@
 <body>
 <div layout:fragment="content">
 
-    <div class="flex-inline-center-container" th:if="${deleteError}">
-        <span class="alert alert-danger" role="alert" th:text="${deleteErrorMsg}" style="font-weight: bold">Delete error</span>
+    <div class="flex-inline-center-container" th:if="${copyError}">
+        <span class="alert alert-danger" role="alert" th:text="${copyErrorMsg}" style="font-weight: bold">Delete error</span>
     </div>
 
     <form class="form-inline" method="post" th:action="@{/manager/copies}"><div>

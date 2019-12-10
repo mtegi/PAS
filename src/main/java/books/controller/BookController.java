@@ -7,6 +7,7 @@ import books.utils.BookCompareByAuthor;
 import books.utils.BookIdManager;
 import items.copies.service.CopyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Controller
 public class BookController {
@@ -76,6 +78,31 @@ public class BookController {
 
             copyService.replaceBookWithNull(bookId,bookService.getEmptyBook());
 
+
+        return viewAllBooks(model);
+    }
+
+    @GetMapping({"/manager/editbook"})
+    public  String editBookPage(@RequestParam("bookId") int bookId, Model model) {
+        Book book = bookService.get(bookId);
+        model.addAttribute("book", book);
+        return "bookEdit";
+    }
+
+
+    @PostMapping({"/manager/editbook"})
+    public  String editBook(@RequestParam("bookId") int bookId, @RequestParam("title") String title,
+                            @RequestParam("firstName") String firstname, @RequestParam("lastName") String lastname,
+                            Model model) {
+
+        Book book = bookService.get(bookId);
+
+        if(title!="")
+          book.setTitle(title);
+        if(firstname!="")
+          book.getAuthor().setFirstName(firstname);
+        if(lastname!="")
+          book.getAuthor().setLastName(lastname);
 
         return viewAllBooks(model);
     }

@@ -9,4 +9,5 @@ public interface IUserService {
     UserModel findByUsername(String username);
 
     boolean addUser(UserModel newUser);
+    void expireUserSessions(String username);
 }
