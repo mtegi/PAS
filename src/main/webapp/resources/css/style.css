@@ -33,6 +33,7 @@ h2 {
 }
 
 #sticky-footer {
+    position: fixed;
     flex-shrink: initial;
     background: lightslategray;
     bottom: 0;

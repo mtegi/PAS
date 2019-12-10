@@ -16,7 +16,7 @@
         <div>
         <input class="form-control" type="hidden" name="copyId" th:value="${copy.Id}">
         <input class="form-control" type="number"  min="1" name="bookId" th:placeholder= "${copy.getEntity().Id}">
-        <input   th:if="${copy.getBookType() instanceof T(items.copies.model.PaperBook)}" class="form-control" type="number" min="0"  name="pages" th:placeholder= "${copy.bookType.pages}">
+        <input   th:if="${copy.getBookType() instanceof T(items.copies.model.PaperBook)}" class="form-control" type="number" min="1"  name="pages" th:placeholder= "${copy.bookType.pages}">
             <input   th:if="${copy.getBookType() instanceof T(items.copies.model.AudioBook)}" class="form-control" type="text" name="lenght" th:placeholder= "${copy.bookType.getDurationString()}">
         <input class="btn btn-outline-secondary" type="submit" value="ok">
         <a class="btn btn-light" type="button" th:href="@{/manager/copies}">cancel</a>
