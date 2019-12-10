@@ -11,7 +11,7 @@ public class AbstractCopyRepository<T extends IMapable & IAllocable & ICopy> ext
         super(provider);
     }
 
-    public T getCopy(int entityId){
+    public T findCopyByEntityId(int entityId){
         return container.values().stream().filter(copy -> copy.getEntity().getId() == entityId).findAny().orElse(null);
     }
 

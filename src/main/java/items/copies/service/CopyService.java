@@ -20,9 +20,14 @@ public class CopyService extends AbstractCopyService<Copy>  {
     }
 
 
-    public Copy getCopy(int copyId, String type) {
-        Copy ret = repository.getCopy(copyId, type);
+    public Copy getCopy(int bookId, String type) {
+        Copy ret = repository.getCopy(bookId, type);
         return ret;
+    }
+
+    public Copy getCopy( int copyId)
+    {
+        return repository.get(copyId);
     }
 
     public void replaceBookWithNull ( int bookId, Book nullBook)

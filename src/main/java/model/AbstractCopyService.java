@@ -10,8 +10,8 @@ public class AbstractCopyService<T extends IMapable & IAllocable & ICopy> implem
     }
 
     @Override
-    public T getCopy(int entityId) {
-        T ret = repository.getCopy(entityId);
+    public T findCopyByEntityId(int entityId) {
+        T ret = repository.findCopyByEntityId(entityId);
         return ret;
     }
 

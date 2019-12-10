@@ -31,6 +31,12 @@ public class AudioBook implements BookType {
     return time;
     }
 
+    public void setDuration(String time)
+    {
+
+        this.duration = parseString(time);
+    }
+
     private long parseString(String time)
     {
         //ToDo: weryfikacja

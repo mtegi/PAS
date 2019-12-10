@@ -1,7 +1,10 @@
 package items.copies.controller;
 
+import books.service.BookService;
+import items.copies.model.AudioBook;
 import items.copies.model.Copy;
 import items.copies.model.CopyFactory;
+import items.copies.model.PaperBook;
 import items.copies.service.CopyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,20 +13,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Controller
 public class CopyController {
     private CopyService copyService;
     private CopyFactory copyFactory;
+    private BookService bookService;
 
 
     @Autowired
-    public CopyController(CopyService copyService, CopyFactory copyFactory) {
+    public CopyController(CopyService copyService, CopyFactory copyFactory, BookService bookService) {
         this.copyService = copyService;
         this.copyFactory = copyFactory;
+        this.bookService = bookService;
+
     }
 
     @GetMapping({"/manager/copies"})
@@ -63,6 +68,8 @@ public class CopyController {
     {
        model.addAttribute("copyError",false);
         try {
+            if(!bookService.containsId(bookId))
+                throw new IllegalArgumentException("Incorrect ID argument");
             copyService.add(copyFactory.createCopy(bookId, type, pages, time));
         }
         catch( IllegalArgumentException e)
@@ -75,4 +82,61 @@ public class CopyController {
         }
 
     }
+
+    @GetMapping({"/manager/editcopy"})
+    public  String editCopyPage(@RequestParam("Id") int copyId, Model model) {
+
+
+        Copy copy = copyService.getCopy(copyId);
+
+        model.addAttribute("copy",copy);
+        return "copyEdit";
+    }
+
+
+    @PostMapping({"/manager/editcopy"})
+    public  String editCopy(@RequestParam("copyId") int copyId, @RequestParam("bookId") Optional<Integer> bookId,
+                            @RequestParam("pages") Optional<Integer> pages, @RequestParam("lenght") Optional<String> lenght,
+                            Model model) {
+
+        Copy copy = copyService.getCopy(copyId);
+        model.addAttribute("copyError",false);
+
+        try {
+            if(bookId.isPresent()) {
+                if (bookService.containsId(bookId.get()))
+                    copy.setEntity(bookService.get(bookId.get()));
+                else
+                    throw new IllegalArgumentException("Incorrect ID argument");
+            }
+
+
+          if(copy.getBookType() instanceof PaperBook) {
+              if (pages.isPresent())
+                  if (pages.get() > 0)
+                      ((PaperBook) copy.getBookType()).setPages(pages.get());
+                  else
+                      throw new IllegalArgumentException("Incorrect page number");
+          }
+
+            if(copy.getBookType() instanceof AudioBook) {
+                if (lenght.get() != "")
+                    if (lenght.get().matches("^(\\d\\d:\\d\\d:\\d\\d)"))
+                        ((AudioBook) copy.getBookType()).setDuration(lenght.get());
+                    else
+                        throw new IllegalArgumentException("Incorrect date format");
+            }
+
+
+        }
+        catch( IllegalArgumentException e)
+        {
+            model.addAttribute("copyError", true);
+            model.addAttribute("copyErrorMsg", e.getMessage());
+        }
+        finally {
+            return viewAll(model);
+        }
+    }
+
 }
