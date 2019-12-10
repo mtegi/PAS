@@ -87,7 +87,7 @@ public class CopyController {
     public  String editCopyPage(@RequestParam("Id") int copyId, Model model) {
 
 
-        Copy copy = copyService.getCopy(copyId);
+        Copy copy = copyService.get(copyId);
 
         model.addAttribute("copy",copy);
         return "copyEdit";
@@ -99,7 +99,7 @@ public class CopyController {
                             @RequestParam("pages") Optional<Integer> pages, @RequestParam("lenght") Optional<String> lenght,
                             Model model) {
 
-        Copy copy = copyService.getCopy(copyId);
+        Copy copy = copyService.get(copyId);
         model.addAttribute("copyError",false);
 
         try {

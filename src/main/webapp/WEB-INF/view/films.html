@@ -29,6 +29,7 @@
     <table class="table table-bordered bg-secondary table-fit">
         <thead>
         <tr>
+            <th scope="col">Id</th>
             <th scope="col">Title</th>
             <th scope="col">Director</th>
             <th scope="col">Release</th>
@@ -38,6 +39,7 @@
         </thead>
         <tbody>
         <tr th:each="film: ${films}">
+            <td th:text="${film.Id}"></td>
             <td th:text="${film.title}"></td>
             <td th:text="${film.director.firstName + ' ' + film.director.lastName}" +></td>
             <td th:text="${film.getReleaseDate()}"></td>
@@ -55,6 +57,10 @@
                     <div class="flex-inline-center-container" th:if="${deleteError}">
                         <span class="alert alert-danger" role="alert" th:text="${deleteErrorMsg}" style="font-weight: bold">Wrong input!</span>
                     </div>
+                </div></form>
+                <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="get" th:action="@{/manager/editFilm}"><div>
+                    <input class="form-control" type="hidden" name="filmId" th:value="${film.Id}">
+                    <input class="btn btn-outline-secondary" type="submit" value="edit">
                 </div></form>
             </td>
         </tr>

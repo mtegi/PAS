@@ -12,21 +12,44 @@
     </head>
 <body>
 <div layout:fragment="content">
+    <div class="flex-inline-center-container" th:if="${copyError}">
+        <span class="alert alert-danger" role="alert" th:text="${copyErrorMsg}"
+              style="font-weight: bold">Delete error</span>
+    </div>
     <form class="form-inline" method="post" th:action="@{/manager/film-copies}"><div>
         <input class="form-control" type="text" name="filterStr" placeholder="Film Title">
         <input class="btn btn-outline-secondary" type="submit" value="Filter">
     </div></form>
-    <table class="table table-bordered bg-secondary table-fit fixed-centered">
+    <form sec:authorize="hasAnyRole('ADMIN','MANAGER')" class="form-inline" method="post" th:action="@{/manager/addFilmCopy}">
+        <input class="form-control" type="number" name="filmId" th:required="required" placeholder="FilmId">
+        <input class="btn btn-outline-secondary" type="submit" value="AddCopy">
+    </form>
+    <table class="table table-bordered bg-secondary table-fit">
         <thead>
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Film</th>
+            <th sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="copy: ${copies}">
             <td th:text="${copy.Id}"></td>
             <td th:text="${copy.getTitle()}"></td>
+            <td>
+                <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="post"
+                      th:action="@{/manager/deleteFilmCopy}">
+                    <input class="form-control" type="hidden" name="id" th:value="${copy.Id}">
+                    <input class="btn btn-outline-secondary" type="submit" value="Delete">
+                </form>
+                <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="get"
+                      th:action="@{/manager/editFilmCopy}">
+                    <div>
+                        <input class="form-control" type="hidden" name="id" th:value="${copy.Id}">
+                        <input class="btn btn-outline-secondary" type="submit" value="edit">
+                    </div>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{layouts/main}">
+
+<head>
+    <title>filmCopyEdit</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class = "form-row" method="post"  th:action="@{/manager/editFilmCopy}">
+        <div>
+            <input class="form-control" type="hidden" name="copyId" th:value="${copy.Id}">
+            <input class="form-control" type="number"  min="1" name="filmId" th:placeholder= "${copy.getEntity().Id}">
+            <input class="btn btn-outline-secondary" type="submit" value="ok">
+            <a class="btn btn-light" type="button" th:href="@{/manager/copies}">cancel</a>
+        </div></form>
+</div>
+</body>
+</html>

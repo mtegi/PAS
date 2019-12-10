@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Controller
 public class FilmController {
@@ -69,6 +70,30 @@ public class FilmController {
             model.addAttribute("deleteError", true);
             model.addAttribute("deleteErrorMsg", "Film not found");
         }
+        return viewAllFilms(model);
+    }
+
+    @GetMapping({"/manager/editFilm"})
+    public  String editBookPage(@RequestParam("filmId") int filmId, Model model) {
+        Film film = filmService.get(filmId);
+        model.addAttribute("film", film);
+        return "filmEdit";
+    }
+
+
+    @PostMapping({"/manager/editFilm"})
+    public  String editBook(@RequestParam("filmId") int filmId, @RequestParam("title") String title,
+                            @RequestParam("firstName") String firstname, @RequestParam("lastName") String lastname,
+                            @RequestParam("release") Optional<Integer> releaseDate, Model model) {
+
+        Film film = filmService.get(filmId);
+        if(title!="")
+            film.setTitle(title);
+        if(firstname!="")
+            film.getDirector().setFirstName(firstname);
+        if(lastname!="")
+            film.getDirector().setLastName(lastname);
+        releaseDate.ifPresent(film::setReleaseDate);
         return viewAllFilms(model);
     }
 }
