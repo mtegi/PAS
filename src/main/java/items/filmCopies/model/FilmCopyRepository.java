@@ -8,8 +8,11 @@ import org.springframework.stereotype.Repository;
     @Repository
     public class FilmCopyRepository extends AbstractCopyRepository<FilmCopy> {
 
+
         public FilmCopyRepository(IDataProvider<FilmCopy> provider) {
+
             super(provider);
         }
+
     }
 

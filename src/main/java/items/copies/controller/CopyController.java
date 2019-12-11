@@ -1,5 +1,6 @@
 package items.copies.controller;
 
+import allocations.service.AllocationService;
 import books.service.BookService;
 import items.copies.model.AudioBook;
 import items.copies.model.Copy;
@@ -21,13 +22,15 @@ public class CopyController {
     private CopyService copyService;
     private CopyFactory copyFactory;
     private BookService bookService;
+    private AllocationService allocationService;
 
 
     @Autowired
-    public CopyController(CopyService copyService, CopyFactory copyFactory, BookService bookService) {
+    public CopyController(CopyService copyService, CopyFactory copyFactory, BookService bookService,AllocationService allocationService) {
         this.copyService = copyService;
         this.copyFactory = copyFactory;
         this.bookService = bookService;
+        this.allocationService = allocationService;
 
     }
 
@@ -52,6 +55,8 @@ public class CopyController {
     public String deleteCopy (@RequestParam(name = "id") int id, Model model)
     {
         model.addAttribute("copyError",false);
+        allocationService.replaceWithNull(id);
+
         if(! copyService.delete(id)) {
             model.addAttribute("copyError", true);
             model.addAttribute("copyErrorMsg", "Error while deleting");

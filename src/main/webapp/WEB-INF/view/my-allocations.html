@@ -31,6 +31,8 @@
             <td th:text="${allocation.item.title}"></td>
             <td th:if="${allocation.item instanceof T(items.copies.model.Copy)}" th:text="${allocation.item.getBookType().getClass().getSimpleName()}"></td>
             <td th:if="${allocation.item instanceof T(items.filmCopies.model.FilmCopy)}">Film</td>
+            <td th:if="${allocation.item instanceof T(model.NullAllocable)}">Empty</td>
+
             <td th:text="${allocation.getStartDateString()}"></td>
             <td th:text="${allocation.getEndDateString()}"></td>
             <div class="allocation-status">

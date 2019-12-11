@@ -1,7 +1,7 @@
 package allocations.model;
 
-import model.IDataProvider;
-import model.MapRepository;
+import items.filmCopies.model.FilmCopy;
+import model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +13,13 @@ import java.util.stream.Collectors;
 @Repository
 public class AllocationRepository extends MapRepository<Allocation> {
 
+    private NullAllocable nullAllocable;
+
     @Autowired
-    public AllocationRepository(IDataProvider<Allocation> provider) {
+    public AllocationRepository(IDataProvider<Allocation> provider, NullAllocable nullAllocable) {
+
         super(provider);
+        this.nullAllocable=nullAllocable;
     }
 
     public ArrayList<Allocation> getUserAllocations(String username) {
@@ -51,6 +55,19 @@ public class AllocationRepository extends MapRepository<Allocation> {
             }
         }
         return ret;
+    }
+
+    public void replaceWithNull(int itemId)
+    {
+        for (Allocation allocation:container.values()
+             )
+        {
+            if(allocation.getItem().getId()==itemId)
+            {
+               allocation.setItem(nullAllocable);
+            }
+            
+        }
     }
 
     @Override

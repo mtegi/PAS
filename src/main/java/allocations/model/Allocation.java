@@ -31,6 +31,11 @@ public class Allocation implements IMapable {
         return item;
     }
 
+    public void setItem( IAllocable item)
+    {
+        this.item = item;
+    }
+
     public UserModel getOwner() {
         return owner;
     }

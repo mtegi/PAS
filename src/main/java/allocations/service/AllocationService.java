@@ -14,6 +14,8 @@ import java.util.ArrayList;
 @Service
 public class AllocationService extends AbstractService<Allocation> implements IAllocationService {
    private AllocationRepository repository;
+
+
     @Autowired
     public AllocationService(AllocationRepository repository) {
         super(repository);
@@ -48,7 +50,10 @@ public class AllocationService extends AbstractService<Allocation> implements IA
        return allocation.isFinished();
     }
 
-
+    @Override
+    public void replaceWithNull(int itemId) {
+        repository.replaceWithNull(itemId);
+    }
 
 
 }

@@ -14,5 +14,7 @@ public interface IAllocationService {
     ArrayList<Allocation> getFilteredAllocations(String title);
     boolean isBorrowed(IAllocable copy, LocalDateTime start, LocalDateTime end);
     boolean completeBorrowing(Allocation allocation);
+    public void replaceWithNull(int itemId);
+
 
 }
