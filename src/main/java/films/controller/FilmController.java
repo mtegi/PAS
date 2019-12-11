@@ -70,6 +70,7 @@ public class FilmController {
             model.addAttribute("deleteError", true);
             model.addAttribute("deleteErrorMsg", "Film not found");
         }
+        copyService.replaceFilmWithNull(filmId,filmService.getEmptyEntity());
         return viewAllFilms(model);
     }
 

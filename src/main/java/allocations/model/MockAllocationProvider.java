@@ -1,6 +1,7 @@
 package allocations.model;
 
 import items.copies.service.CopyService;
+import items.filmCopies.service.FilmCopyService;
 import login.service.UserService;
 import model.IDataProvider;
 import model.IIdManager;
@@ -17,10 +18,12 @@ public class MockAllocationProvider implements IDataProvider<Allocation> {
     private IIdManager idManager;
     private UserService userService;
     private CopyService copyService;
+    private FilmCopyService filmCopyService;
 
 
     @Override
     public void fill(Collection<Allocation> data) {
+        data.add(new Allocation(idManager.nextId(),filmCopyService.findCopyByEntityId(5),userService.findByUsername("user"), LocalDateTime.now(),LocalDateTime.now()));
         data.add(new Allocation(idManager.nextId(),copyService.findCopyByEntityId(1), userService.findByUsername("user"), LocalDateTime.now(),LocalDateTime.now()));
     }
 
@@ -38,5 +41,10 @@ public class MockAllocationProvider implements IDataProvider<Allocation> {
     @Autowired
     public void setIdManager(IIdManager idManager) {
         this.idManager = idManager;
+    }
+
+    @Autowired
+    public void setFilmCopyService(FilmCopyService filmCopyService) {
+        this.filmCopyService = filmCopyService;
     }
 }

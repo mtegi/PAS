@@ -46,7 +46,7 @@
             <td sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" th:text="${service.count(film)}"></td>
             <td>
                 <form sec:authorize="hasRole('ROLE_USER')" class="form-inline" method="post" th:action="@{/borrowFilm}">
-                    <input class="form-control" type="hidden" name="Id" th:value="${film.Id}">
+                    <input class="form-control" type="hidden" name="filmId" th:value="${film.Id}">
                     <input class="form-control" type="datetime-local" name="startDate" th:required="required">
                     <input class="form-control" type="datetime-local" name="endDate" th:required="required">
                     <input class="btn btn-outline-secondary" type="submit" value="Borrow">

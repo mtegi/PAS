@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{layouts/main}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <form sec:authorize="hasAnyRole('ADMIN')" class = "form-row" method="post" th:action="@{/admin/edituser}">
+        <div>
+            <input class="form-control" type="hidden" name="originalUsername" th:value="${user.username}">
+            <input class="form-control" type="text"  name="username" th:placeholder= "${user.username}">
+            <input class="form-control" type="text"  name="password" th:placeholder= "${user.password}">
+            <div>
+            <input  class="dropdown-item" type="radio"  name="roles" value="ADMIN"  th:checked="${user.hasRole('ADMIN')}">ADMIN
+            <input  class="dropdown-item" type="radio"  name="roles" value="MANAGER"  th:checked="${user.hasRole('MANAGER')}"> MANAGER
+            <input  class="dropdown-item" type="radio"  name="roles" value="USER" th:checked="${user.hasRole('USER')}"> USER
+            </div>
+            <a class="btn btn-light" type="button" th:href="@{/admin/manage-users}">cancel</a>
+            <input class="btn btn-outline-secondary" type="submit" value="ok">
+        </div></form>
+</div>
+</body>
+</html>

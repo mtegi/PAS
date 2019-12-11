@@ -34,8 +34,15 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public void updateUser(String oldUserName, UserModel newUser) {
+        repository.updateUser(oldUserName,newUser);
+    }
+
+    @Override
     public boolean addUser(UserModel newUser) {
+        if(newUser.getRoles().length==0)
         newUser.setRoles("USER");
+
         return repository.addUser(newUser);
     }
 

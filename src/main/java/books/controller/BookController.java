@@ -76,7 +76,7 @@ public class BookController {
                 model.addAttribute("deleteErrorMsg", "Book not found");
             }
 
-            copyService.replaceBookWithNull(bookId,bookService.getEmptyBook());
+            copyService.replaceBookWithNull(bookId,bookService.getEmptyEntity());
 
 
         return viewAllBooks(model);

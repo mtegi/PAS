@@ -97,6 +97,13 @@
                         <input class="btn btn-outline-secondary" type="submit" value="edit">
                     </div>
                 </form>
+                <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="get"
+                      th:action="@{/manager/copyallocations}">
+                    <div>
+                        <input class="form-control" type="hidden" name="copyId" th:value="${copy.Id}">
+                        <input class="btn btn-outline-secondary" type="submit" value="show">
+                    </div>
+                </form>
             </td>
 
         </tr>

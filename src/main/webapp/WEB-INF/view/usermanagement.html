@@ -4,22 +4,34 @@
         xmlns:th="http://www.thymeleaf.org"
         xmlns="http://www.w3.org/1999/html"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         layout:decorate="~{layouts/main}">
 <head>
     <title>Manage Users</title>
 </head>
 <body>
 <div layout:fragment="content">
+    <div class="flex-inline-center-container">
+        <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
+    </div>
     <div>
         <form class="form-inline" method="post" th:action="@{/admin/manage-users}"><div>
             <input class="form-control" type="text" name="username" placeholder="username">
             <input class="btn btn-outline-secondary" type="submit" value="Activate / Deactivate">
         </div></form>
-        <div class="flex-inline-center-container">
-            <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
+        <div>
+            <form sec:authorize="hasRole('ADMIN')" class="form-inline" method="post" th:action="@{/admin/adduser}">
+                <input class="form-control" type="text" name="username" placeholder="username" th:required="required">
+                <input class="form-control" type="text" name="password" placeholder="password" th:required="required">
+                <input  class="form-control dropdown-item" type="radio"  name="roles" value="ADMIN" >ADMIN
+                <input  class="form-control dropdown-item" type="radio"  name="roles" value="MANAGER" > MANAGER
+                <input  class="form-control dropdown-item" type="radio"  name="roles" value="USER" > USER
+                <input class="btn btn-outline-secondary" type="submit" value="add">
+
+            </form>
+
         </div>
-    </div>
-<table class="table table-bordered bg-secondary table-fit fixed-centered">
+<table class="table table-bordered bg-secondary table-fit">
     <thead>
     <tr>
         <th scope="col">Username</th>
@@ -34,6 +46,16 @@
                 <ul th:each="role: ${user.roles}">
                     <li th:text="${role}"></li>
                 </ul>
+            </td>
+            <td>
+                <form sec:authorize="hasRole('ADMIN')" class="form-inline" method="get" th:action="@{/admin/edituser}"><div>
+                <input class="form-control" type="hidden" name="username" th:value="${user.username}">
+                <input class="btn btn-outline-secondary" type="submit" value="edit">
+            </div></form>
+                <form sec:authorize="hasRole('ADMIN')" class="form-inline" method="get" th:action="@{/admin/userallocations}"><div>
+                    <input class="form-control" type="hidden" name="username" th:value="${user.username}">
+                    <input class="btn btn-outline-secondary" type="submit" value="show">
+                </div></form>
             </td>
         </tr>
     </th:block>

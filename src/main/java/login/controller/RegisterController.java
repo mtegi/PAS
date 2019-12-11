@@ -30,17 +30,17 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String handlePostRequest (@Valid @ModelAttribute("newUser") UserModel newUser, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors()){
-            model.addAttribute("errorHappened",true);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errorHappened", true);
             model.addAttribute("errorMsg", bindingResult.getFieldError().getDefaultMessage());
-        }else{
-            model.addAttribute("errorHappened",false);
-            if(userService.addUser(newUser))
-                return "redirect:/login";
-            else{
-                model.addAttribute("errorHappened",true);
-                String usernameTaken = "Username is already taken";
-                model.addAttribute("errorMsg", usernameTaken);
+        } else {
+            model.addAttribute("errorHappened", false);
+            try {
+                userService.addUser(newUser);
+            } catch (IllegalArgumentException e) {
+                model.addAttribute("errorHappened", true);
+                model.addAttribute("errorMsg", e.getMessage());
+            } finally {
                 return "register";
             }
         }

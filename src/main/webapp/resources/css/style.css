@@ -182,4 +182,7 @@ table.table-fit tbody td, table.table-fit tfoot td {
     flex-direction: column;
 }
 
+.form-block {
+    display: block;
+}
 

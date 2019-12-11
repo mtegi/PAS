@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public abstract class AbstractCopyService<T extends IMapable & IAllocable & ICopy> implements ICopyService<T> {
-    private AbstractCopyRepository<T> repository;
+    protected AbstractCopyRepository<T> repository;
 
     public AbstractCopyService(AbstractCopyRepository<T> repository) {
         this.repository = repository;

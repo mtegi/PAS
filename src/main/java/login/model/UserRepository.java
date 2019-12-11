@@ -18,8 +18,20 @@ public class UserRepository implements IUserRepository {
     }
 
     public boolean addUser(UserModel user){
-        if(findByUsername(user.getUsername()) != null) return false;
+        if(findByUsername(user.getUsername()) != null) throw new IllegalArgumentException("username already exist");
         return this.users.add(user);
+    }
+
+    @Override
+    public void updateUser(String oldUserName, UserModel newUser) {
+
+        if(findByUsername(newUser.getUsername()) != null) throw new IllegalArgumentException("username already exist");
+        else {
+            UserModel oldUser = findByUsername(oldUserName);
+            oldUser.setUsername(newUser.getUsername());
+            oldUser.setPassword(newUser.getPassword());
+            oldUser.setRoles(newUser.getRoles());
+        }
     }
 
     public UserModel findByUsername(final String username){

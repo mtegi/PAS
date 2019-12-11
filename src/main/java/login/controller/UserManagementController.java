@@ -3,6 +3,7 @@ package login.controller;
 import login.model.UserModel;
 import login.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +36,11 @@ public class UserManagementController {
 
     @GetMapping({"/admin/manage-users"})
     public String handleGetRequest (Model model) {
+    return viewAll(model);
+    }
+
+    private String viewAll(Model model)
+    {
         ArrayList<UserModel> users = (ArrayList<UserModel>) userService.getAll();
         model.addAttribute("users", users);
         return "usermanagement";
@@ -91,4 +97,69 @@ public class UserManagementController {
         }
         return "account-settings";
     }
+
+    @PostMapping({"/admin/adduser"})
+    public String  addUser (@RequestParam("username") String username,
+                                     @RequestParam("password") String password,
+                                     @RequestParam("roles") String role, Model model) {
+        model.addAttribute("errorHappened", false);
+        try {
+            if(role.equalsIgnoreCase("USER"))
+                throw new IllegalArgumentException(role);
+
+            UserModel user = new UserModel(username,password,role);
+
+            userService.addUser(user);
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorHappened", true);
+            model.addAttribute("errorMsg", e.getMessage());
+        } finally {
+            return viewAll(model);
+        }
+    }
+
+    @GetMapping({"/admin/edituser"})
+    public String showEditView( @RequestParam("username") String username, Model model)
+    {
+        UserModel user = userService.findByUsername(username);
+        model.addAttribute("user",user);
+        return "userEdit";
+    }
+
+    @PostMapping({"/admin/edituser"})
+    public String editUser(@RequestParam("username") String username, @RequestParam("password") String password,
+          @RequestParam("roles") String roles,  @RequestParam("originalUsername") String originalUsername, Model model){
+
+        model.addAttribute("errorHappened",false);
+        UserModel user = userService.findByUsername(originalUsername);
+        try {
+            if (user == null) {
+                throw new NullPointerException("Requested user does not exist");
+            }
+
+            if(username!="") {
+                if (userService.findByUsername(username) == null)
+                    user.setUsername(username);
+                else
+                    throw new IllegalArgumentException("username already taken");
+            }
+
+            if(password!="")
+            user.setPassword(password);
+
+            user.setRoles(roles);
+
+        } catch (NullPointerException|IllegalArgumentException e)
+        {
+            model.addAttribute("errorHappened",true);
+            model.addAttribute("errorMsg", e.getMessage());
+        }
+        finally
+        {
+            return viewAll(model);
+        }
+
+    }
+
+
 }

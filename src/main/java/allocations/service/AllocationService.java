@@ -26,6 +26,11 @@ public class AllocationService extends AbstractService<Allocation> implements IA
     }
 
     @Override
+    public ArrayList<Allocation> getCopyAllocations(int copyId) {
+        return repository.getCopyAllocations(copyId);
+    }
+
+    @Override
     public ArrayList<Allocation> getFilteredAllocations(String title) {
         return repository.getFilteredAllocations(title);
     }

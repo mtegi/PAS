@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Repository
 public class AllocationRepository extends MapRepository<Allocation> {
@@ -25,6 +26,11 @@ public class AllocationRepository extends MapRepository<Allocation> {
             if(Pattern.compile(Pattern.quote(username)).matcher(allocation.getOwner().getUsername()).find()) ret.add(allocation);
         }
         return ret;
+    }
+
+    public ArrayList<Allocation> getCopyAllocations(int copyId)
+    {
+        return new ArrayList<>(container.values().stream().filter(allocation -> allocation.getItem().getId() == copyId).collect(Collectors.toList()));
     }
 
     public ArrayList<Allocation> getFilteredAllocations(String filterStr) {

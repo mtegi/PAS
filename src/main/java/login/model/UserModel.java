@@ -3,6 +3,7 @@ package login.model;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Arrays;
 
 public class UserModel {
     @NotNull(message = "Please enter username")
@@ -48,5 +49,10 @@ public class UserModel {
 
     public void setRoles(String... roles) {
         this.roles = roles;
+    }
+
+    public boolean hasRole(String role)
+    {
+        return Arrays.asList(roles).contains(role);
     }
 }
