@@ -69,6 +69,12 @@ public class AllocationController {
         return "all-allocations";
     }
 
+    @PostMapping(value = "/completeAllocationAll", params = {"id"})
+    public String completeAllocationAll(@RequestParam("id") int id, Model model){
+        allocationService.completeBorrowing(allocationService.get(id));
+        return viewAllAllocations(model);
+    }
+
     @PostMapping(value = "/completeAllocation", params = {"id"})
     public String completeAllocation(@RequestParam("id") int id, Model model){
         allocationService.completeBorrowing(allocationService.get(id));

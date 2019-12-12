@@ -12,15 +12,14 @@
 </head>
 <body>
 <div layout:fragment="content">
+    <div class="flex-inline-center-container">
+        <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
+    </div>
     <div class="flex-inline-center-container" th:if="${allocationError}">
         <span class="alert alert-danger" role="alert" th:text="${allocationErrorMsg}" style="font-weight: bold">Wrong input!</span>
     </div>
     <div class="flex-inline-center-container" th:if="${allocationSuccess}">
         <span class="alert alert-success" role="alert" th:text="${allocationSuccessMsg}" style="font-weight: bold">Success</span>
-    </div>
-
-    <div class="flex-inline-center-container">
-        <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
     </div>
 
     <form class="form-inline" method="post" th:action="@{/books}"><div>
@@ -69,9 +68,6 @@
                 <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="post" th:action="@{/manager/deletebook}"><div>
                     <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">
                     <input class="btn btn-outline-secondary" type="submit" value="Delete">
-                    <div class="flex-inline-center-container" th:if="${deleteError}">
-                        <span class="alert alert-danger" role="alert" th:text="${deleteErrorMsg}" style="font-weight: bold">Wrong input!</span>
-                    </div>
                 </div></form>
                 <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="get" th:action="@{/manager/editbook}"><div>
                     <input class="form-control" type="hidden" name="bookId" th:value="${book.Id}">

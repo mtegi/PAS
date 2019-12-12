@@ -28,6 +28,9 @@ public class CopyFactory {
 
         switch(CopyType) {
            case "PAPERBOOK":
+               if(pages<0)
+                   throw new IllegalArgumentException("Incorrect pages number");
+
               return new Copy(idManager.nextId(),bookService.get(bookId),new PaperBook(pages));
            case "AUDIOBOOK":
                if(time.matches("^(\\d\\d:\\d\\d:\\d\\d)"))

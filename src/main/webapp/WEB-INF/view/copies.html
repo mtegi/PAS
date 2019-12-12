@@ -49,7 +49,7 @@
             <input class="btn btn-outline-secondary" type="submit" value="Filter">
         </div>
     </form>
-    <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" method="post" th:action="@{/manager/addCopy}">
+    <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="post" th:action="@{/manager/addCopy}">
         <input class="form-control" type="number" name="bookId" th:required="required" placeholder="BookId">
         <input id="text-input-paper" class="form-control" type="number" name="lenght-pages" th:required="required"
                placeholder="Number of pages">

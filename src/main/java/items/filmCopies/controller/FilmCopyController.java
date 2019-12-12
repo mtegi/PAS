@@ -85,6 +85,9 @@ public class FilmCopyController {
         model.addAttribute("copyError",false);
 
         try {
+            if(copy==null)
+                throw new IllegalArgumentException("The copy you have beed editing no longer exists");
+
             if (filmId.isPresent()) {
                 if (filmService.containsId(filmId.get()))
                     copy.setEntity(filmService.get(filmId.get()));

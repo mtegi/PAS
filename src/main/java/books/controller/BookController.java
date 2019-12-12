@@ -69,11 +69,11 @@ public class BookController {
 
     @PostMapping({"/manager/deletebook"})
     public  String deleteBook(@RequestParam("bookId") int bookId, Model model){
-            model.addAttribute("deleteError",false);
+            model.addAttribute("errorHappened",false);
 
             if(!bookService.remove(bookId)) {
-                model.addAttribute("deleteError", true);
-                model.addAttribute("deleteErrorMsg", "Book not found");
+                model.addAttribute("errorHappened", true);
+                model.addAttribute("errorMsg", "Book not found");
             }
 
             copyService.replaceBookWithNull(bookId,bookService.getEmptyEntity());
@@ -85,6 +85,13 @@ public class BookController {
     @GetMapping({"/manager/editbook"})
     public  String editBookPage(@RequestParam("bookId") int bookId, Model model) {
         Book book = bookService.get(bookId);
+
+        if(book==null)
+        {
+            model.addAttribute("errorHappened",true);
+            model.addAttribute("errorMsg", "The book you have chosen no longer exists");
+            return viewAllBooks(model);
+        }
         model.addAttribute("book", book);
         return "bookEdit";
     }
@@ -95,16 +102,29 @@ public class BookController {
                             @RequestParam("firstName") String firstname, @RequestParam("lastName") String lastname,
                             Model model) {
 
+        model.addAttribute("errorHappened",false);
         Book book = bookService.get(bookId);
 
-        if(title!="")
-          book.setTitle(title);
-        if(firstname!="")
-          book.getAuthor().setFirstName(firstname);
-        if(lastname!="")
-          book.getAuthor().setLastName(lastname);
+        try {
+            if (book == null)
+                throw new NullPointerException("Edytowana ksiązka nie istnieje");
 
-        return viewAllBooks(model);
+            if (title != "")
+                book.setTitle(title);
+            if (firstname != "")
+                book.getAuthor().setFirstName(firstname);
+            if (lastname != "")
+                book.getAuthor().setLastName(lastname);
+        }
+        catch (NullPointerException e)
+        {
+            model.addAttribute("errorHappened",true);
+            model.addAttribute("errorMsg", e.getMessage());
+        }
+        finally {
+            return viewAllBooks(model);
+        }
+
     }
 
 

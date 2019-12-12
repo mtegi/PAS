@@ -45,6 +45,13 @@
                 <td th:if="${allocation.isFinished() == false}" th:text="Tbd"></td>
                 <td th:if="${allocation.isFinished() == true}" th:text="${allocation.getReturnDateString()}"></td>
             </div>
+            <div class="allocation-return-action">
+                <td th:if="${allocation.isFinished() == false}"><form class="form-inline" method="post" th:action="@{/completeAllocationAll}">
+                    <input class="form-control" type="hidden" name="id" th:value="${allocation.Id}">
+                    <input class="btn btn-outline-secondary" type="submit" value="Return">
+                </form></td>
+                <td th:if="${allocation.isFinished() == true}" th:text="Done"></td>
+            </div>
         </tr>
         </tbody>
     </table>

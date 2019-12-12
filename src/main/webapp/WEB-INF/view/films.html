@@ -12,19 +12,26 @@
     </head>
 <body>
 <div layout:fragment="content">
+    <div class="flex-inline-center-container" th:if="${allocationError}">
+        <span class="alert alert-danger" role="alert" th:text="${allocationErrorMsg}" style="font-weight: bold">Wrong input!</span>
+    </div>
+    <div class="flex-inline-center-container" th:if="${allocationSuccess}">
+        <span class="alert alert-success" role="alert" th:text="${allocationSuccessMsg}" style="font-weight: bold">Success</span>
+    </div>
+    <div class="flex-inline-center-container">
+        <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
+    </div>
+
     <form class="form-inline" method="post" th:action="@{/films}"><div>
         <input class="form-control" type="text" name="filterStr" placeholder="Title">
         <input class="btn btn-outline-secondary" type="submit" value="Filter">
     </div></form>
-    <form sec:authorize="hasRole('ROLE_ADMIN')" class = "form-row" method="post" th:object="${author}" th:action="@{/manager/addfilm}"><div>
+    <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class = "form-row" method="post" th:object="${author}" th:action="@{/manager/addfilm}"><div>
         <input class="form-control" type="text" name="title" placeholder="Title">
         <input class="form-control" type="text" name="firstName" placeholder="Director's firstname">
         <input class="form-control" type="text" name="lastName" placeholder="Director's lastname">
         <input class="form-control" type="number" name="release" placeholder="Release">
         <input class="btn btn-outline-secondary" type="submit" value="Add">
-        <div class="flex-inline-center-container">
-            <span class="alert alert-danger" role="alert" th:if="${errorHappened}" th:text="${errorMsg}" style="font-weight: bold">Wrong input!</span>
-        </div>
     </div></form>
     <table class="table table-bordered bg-secondary table-fit">
         <thead>
@@ -54,9 +61,6 @@
                 <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="post" th:action="@{/manager/deletefilm}"><div>
                     <input class="form-control" type="hidden" name="filmId" th:value="${film.Id}">
                     <input class="btn btn-outline-secondary" type="submit" value="Delete">
-                    <div class="flex-inline-center-container" th:if="${deleteError}">
-                        <span class="alert alert-danger" role="alert" th:text="${deleteErrorMsg}" style="font-weight: bold">Wrong input!</span>
-                    </div>
                 </div></form>
                 <form sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" class="form-inline" method="get" th:action="@{/manager/editFilm}"><div>
                     <input class="form-control" type="hidden" name="filmId" th:value="${film.Id}">
@@ -66,12 +70,6 @@
         </tr>
         </tbody>
     </table>
-    <div class="flex-inline-center-container" th:if="${allocationError}">
-        <span class="alert alert-danger" role="alert" th:text="${allocationErrorMsg}" style="font-weight: bold">Wrong input!</span>
-    </div>
-    <div class="flex-inline-center-container" th:if="${allocationSuccess}">
-        <span class="alert alert-success" role="alert" th:text="${allocationSuccessMsg}" style="font-weight: bold">Success</span>
-    </div>
 </div>
 </body>
 </html>

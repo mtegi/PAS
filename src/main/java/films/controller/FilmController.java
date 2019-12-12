@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.net.BindException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -51,24 +52,35 @@ public class FilmController {
 
     @PostMapping({"/manager/addfilm"})
     public  String addBook(@RequestParam("title") String title, @RequestParam("release") int releaseDate, @Valid @ModelAttribute(name = "author") Author author, BindingResult bindingResult, Model model){
-        if(bindingResult.hasErrors()){
-            model.addAttribute("errorHappened",true);
-            model.addAttribute("errorMsg", "null field");
-        }else{
-            model.addAttribute("errorHappened",false);
-            if(!filmService.add(new Film(idManager.nextId(),title,author,releaseDate)))
-                model.addAttribute("errorHappened",true);
-            model.addAttribute("errorMsg", "Film already exists");
-        }
-        return viewAllFilms(model);
+        model.addAttribute("errorHappened",false);
+
+     try{
+         if(bindingResult.hasErrors()){
+             throw new BindException("Binding failed");
+         }
+
+         if(releaseDate<0)
+             throw new IllegalArgumentException("Illegal release date");
+
+         if(!filmService.add(new Film(idManager.nextId(),title,author,releaseDate)))
+             throw new IllegalArgumentException("Film already exists");
+     }
+     catch (BindException|IllegalArgumentException e)
+     {
+         model.addAttribute("errorHappened",true);
+         model.addAttribute("errorMsg", e.getMessage());
+     }
+    finally {
+         return viewAllFilms(model);
+     }
     }
 
     @PostMapping({"/manager/deletefilm"})
     public  String deleteBook(@RequestParam("filmId") int filmId, Model model) {
-        model.addAttribute("deleteError", false);
+        model.addAttribute("errorHappened", false);
         if (!filmService.remove(filmId)) {
-            model.addAttribute("deleteError", true);
-            model.addAttribute("deleteErrorMsg", "Film not found");
+            model.addAttribute("errorHappened", true);
+            model.addAttribute("errorMsg", "Film not found");
         }
         copyService.replaceFilmWithNull(filmId,filmService.getEmptyEntity());
         return viewAllFilms(model);
@@ -77,6 +89,14 @@ public class FilmController {
     @GetMapping({"/manager/editFilm"})
     public  String editBookPage(@RequestParam("filmId") int filmId, Model model) {
         Film film = filmService.get(filmId);
+
+        if(film==null)
+        {
+            model.addAttribute("errorHappened",true);
+            model.addAttribute("errorMsg", "The film you have chosen no longer exists");
+           return viewAllFilms(model);
+         }
+
         model.addAttribute("film", film);
         return "filmEdit";
     }
@@ -88,13 +108,33 @@ public class FilmController {
                             @RequestParam("release") Optional<Integer> releaseDate, Model model) {
 
         Film film = filmService.get(filmId);
-        if(title!="")
-            film.setTitle(title);
-        if(firstname!="")
-            film.getDirector().setFirstName(firstname);
-        if(lastname!="")
-            film.getDirector().setLastName(lastname);
-        releaseDate.ifPresent(film::setReleaseDate);
-        return viewAllFilms(model);
+        model.addAttribute("errorHappened",false);
+
+        try {
+
+            if(film==null)
+                throw new NullPointerException("The film you have been editing no longer exists");
+
+            if (title != "")
+                film.setTitle(title);
+            if (firstname != "")
+                film.getDirector().setFirstName(firstname);
+            if (lastname != "")
+                film.getDirector().setLastName(lastname);
+
+            if(releaseDate.isPresent())
+                if(releaseDate.get()<0)
+                    throw new IllegalArgumentException("Niepoprawna data");
+
+            releaseDate.ifPresent(film::setReleaseDate);
+        }
+        catch (NullPointerException| IllegalArgumentException e)
+        {
+            model.addAttribute("errorHappened",true);
+            model.addAttribute("errorMsg", e.getMessage());
+        }
+        finally {
+            return viewAllFilms(model);
+        }
     }
 }

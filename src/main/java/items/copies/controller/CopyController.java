@@ -93,6 +93,12 @@ public class CopyController {
 
 
         Copy copy = copyService.get(copyId);
+        if(copy==null)
+        {
+            model.addAttribute("copyError", true);
+            model.addAttribute("copyErrorMsg", "The copy you have chosen no longer exists");
+            return viewAll(model);
+        }
 
         model.addAttribute("copy",copy);
         return "copyEdit";
@@ -108,6 +114,10 @@ public class CopyController {
         model.addAttribute("copyError",false);
 
         try {
+
+            if(copy==null)
+                throw new IllegalArgumentException("The copy you have been editing no longer exists");
+
             if(bookId.isPresent()) {
                 if (bookService.containsId(bookId.get()))
                     copy.setEntity(bookService.get(bookId.get()));
