@@ -82,7 +82,7 @@ public class FilmController {
             model.addAttribute("errorHappened", true);
             model.addAttribute("errorMsg", "Film not found");
         }
-        copyService.replaceFilmWithNull(filmId,filmService.getEmptyEntity());
+        copyService.replaceEntityWithNull(filmId, filmService.getEmptyEntity());
         return viewAllFilms(model);
     }
 

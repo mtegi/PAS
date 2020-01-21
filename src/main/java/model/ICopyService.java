@@ -9,4 +9,5 @@ public interface ICopyService<T extends IAllocable & IMapable> {
     boolean delete(int copyId);
     ArrayList<T> getCopiesByEntityTitle(String title);
     long count(IEntity entity);
+    void replaceEntityWithNull (int entityId, IEntity nullEntity);
 }

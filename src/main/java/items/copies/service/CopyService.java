@@ -1,6 +1,5 @@
 package items.copies.service;
 
-import books.model.Book;
 import items.copies.model.Copy;
 import items.copies.model.CopyRepository;
 import model.AbstractCopyService;
@@ -17,16 +16,9 @@ public class CopyService extends AbstractCopyService<Copy>  {
         this.repository = repository;
     }
 
-
     public Copy getCopy(int bookId, String type) {
         Copy ret = repository.getCopy(bookId, type);
         return ret;
     }
-
-    public void replaceBookWithNull ( int bookId, Book nullBook)
-    {
-        repository.getCopiesByEntityId(bookId).forEach(copy -> copy.setEntity(nullBook));
-    }
-
 
 }

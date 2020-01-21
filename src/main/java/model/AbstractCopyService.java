@@ -41,4 +41,10 @@ public abstract class AbstractCopyService<T extends IMapable & IAllocable & ICop
     public long count(IEntity entity){
         return repository.getAll().stream().filter(copy -> copy.getEntity().getId() == entity.getId()).count();
     }
+
+    @Override
+    public void replaceEntityWithNull (int entityId, IEntity nullEntity)
+    {
+        repository.getCopiesByEntityId(entityId).forEach(copy -> copy.setEntity(nullEntity));
+    }
 }

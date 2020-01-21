@@ -7,7 +7,6 @@ import books.utils.BookCompareByAuthor;
 import books.utils.BookIdManager;
 import items.copies.service.CopyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Controller
 public class BookController {
@@ -76,7 +74,7 @@ public class BookController {
                 model.addAttribute("errorMsg", "Book not found");
             }
 
-            copyService.replaceBookWithNull(bookId,bookService.getEmptyEntity());
+            copyService.replaceEntityWithNull(bookId, bookService.getEmptyEntity());
 
 
         return viewAllBooks(model);

@@ -1,5 +1,6 @@
 package items.filmCopies.controller;
 
+import allocations.service.AllocationService;
 import films.service.FilmService;
 import items.filmCopies.model.FilmCopy;
 import items.filmCopies.service.FilmCopyService;
@@ -19,12 +20,14 @@ public class FilmCopyController {
     private CopyIdManager idManager;
     private FilmCopyService copyService;
     private FilmService filmService;
+    private AllocationService allocationService;
 
     @Autowired
-    public FilmCopyController(FilmCopyService copyService, FilmService filmService, CopyIdManager idManager) {
+    public FilmCopyController(FilmCopyService copyService, FilmService filmService, CopyIdManager idManager, AllocationService allocationService) {
         this.copyService = copyService;
         this.idManager = idManager;
-        this.filmService=filmService;
+        this.filmService = filmService;
+        this.allocationService = allocationService;
     }
 
     @GetMapping({"/manager/film-copies"})
@@ -68,6 +71,8 @@ public class FilmCopyController {
         if(! copyService.delete(id)) {
             model.addAttribute("copyError", true);
             model.addAttribute("copyErrorMsg", "Error while deleting");
+        } else {
+            allocationService.replaceWithNull(id);
         }
         return viewAll(model);
     }
@@ -86,7 +91,7 @@ public class FilmCopyController {
 
         try {
             if(copy==null)
-                throw new IllegalArgumentException("The copy you have beed editing no longer exists");
+                throw new IllegalArgumentException("The copy you have been editing no longer exists");
 
             if (filmId.isPresent()) {
                 if (filmService.containsId(filmId.get()))

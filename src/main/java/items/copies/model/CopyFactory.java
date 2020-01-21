@@ -1,7 +1,6 @@
 package items.copies.model;
 
 
-import books.model.BookRepository;
 import books.service.BookService;
 import items.utils.CopyIdManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,29 +18,48 @@ public class CopyFactory {
 
   public Copy createCopy (int bookId, String CopyType, int pages, String time)
     {
-        if(bookId <0)
-            throw new IllegalArgumentException("Incorrect ID argument");
-
-        if(!bookService.containsId(bookId))
-            throw new IllegalArgumentException("Incorrect ID argument");
-
-
+        ValidateBookId(bookId);
         switch(CopyType) {
-           case "PAPERBOOK":
-               if(pages<0)
-                   throw new IllegalArgumentException("Incorrect pages number");
-
+           case BookType.PaperBook:
+               ValidatePaper(pages);
               return new Copy(idManager.nextId(),bookService.get(bookId),new PaperBook(pages));
-           case "AUDIOBOOK":
-               if(time.matches("^(\\d\\d:\\d\\d:\\d\\d)"))
+           case BookType.AudioBook:
+               ValidateAudio(time);
                return new Copy(idManager.nextId(),bookService.get(bookId),new AudioBook(time));
-               else
-                   throw new IllegalArgumentException("Incorrect date format");
            default:
                throw  new IllegalArgumentException("Copy type not recognized");
        }
 
 }
 
+    public Copy createCopyPaper (int bookId, int pages)
+    {
+        ValidateBookId(bookId);
+        ValidatePaper(pages);
+        return new Copy(idManager.nextId(), bookService.get(bookId), new PaperBook(pages));
+    }
+
+    public Copy createCopyAudio (int bookId, String time)
+    {
+        ValidateBookId(bookId);
+        ValidateAudio(time);
+        return new Copy(idManager.nextId(), bookService.get(bookId), new AudioBook(time));
+    }
+
+    private void ValidatePaper(int pages){
+        if(pages<0) throw new IllegalArgumentException("Incorrect pages number");
+    }
+
+    private void ValidateAudio(String time){
+        if(!time.matches("^(\\d\\d:\\d\\d:\\d\\d)")) throw new IllegalArgumentException("Incorrect date format");
+    }
+
+    private void ValidateBookId(int bookId){
+        if(bookId <0)
+            throw new IllegalArgumentException("Incorrect ID argument");
+
+        if(!bookService.containsId(bookId))
+            throw new IllegalArgumentException("Incorrect ID argument");
+    }
 
 }

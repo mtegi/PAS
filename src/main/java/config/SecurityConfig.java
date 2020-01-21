@@ -11,7 +11,6 @@ import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
 @EnableWebSecurity
@@ -34,8 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
+                .csrf().ignoringAntMatchers("/rest/**").and().httpBasic()
+                .and()
                 .authorizeRequests()
                 .antMatchers("/*").permitAll()
+                .antMatchers("/rest/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/manager/**").hasAnyRole("ADMIN","MANAGER")
                 .antMatchers("/resources/**").permitAll()
