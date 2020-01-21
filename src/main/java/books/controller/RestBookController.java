@@ -32,7 +32,24 @@ public class RestBookController extends AbstractRestEntityController<Book> {
     @Override
     @PutMapping("/update/{id}")
     public void Update(@PathVariable("id") int bookId, @RequestBody JsonNode body) {
-
+        Book book = entityService.get(bookId);
+        if (book == null)
+            throw new NullPointerException("Edytowana ksiązka nie istnieje");
+        if (body.hasNonNull("title")){
+            String title = body.get("title").asText();
+            if(!title.equals("")) book.setTitle(title);
+        }
+        if(body.has("author")){
+            JsonNode author = body.get("author");
+            if(author.hasNonNull("firstname")){
+                String firstname = body.get("firstname").asText();
+                if (!firstname.equals("")) book.getAuthor().setFirstName(firstname);
+            }
+            if(author.hasNonNull("lastname")){
+                String lastname = body.get("lastname").asText();
+                if (!lastname.equals("")) book.getAuthor().setLastName(lastname);
+            }
+        }
     }
 
 }
