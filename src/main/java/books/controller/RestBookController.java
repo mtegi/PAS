@@ -1,5 +1,6 @@
 package books.controller;
 
+import books.model.Author;
 import books.model.Book;
 import books.service.BookService;
 import books.utils.BookIdManager;
@@ -20,7 +21,12 @@ public class RestBookController extends AbstractRestEntityController<Book> {
     @Override
     @PostMapping("/create")
     public String Create(@RequestBody JsonNode body) {
-        return null;
+        String title = body.get("title").asText();
+        JsonNode author = body.get("author");
+        if(entityService.add(new Book(idManager.nextId(),title, new Author(author.get("firstname").asText(), author.get("lastname").asText())))){
+            return "success";
+        }
+        return "failed to add book";
     }
 
     @Override
