@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/rest/books/")
 public class RestBookController extends AbstractRestEntityController<Book> {
 
     @Autowired
