@@ -44,11 +44,11 @@ public class RestFilmController extends AbstractRestEntityController<Film> {
         if(body.has("author")){
             JsonNode author = body.get("director");
             if(author.hasNonNull("firstname")){
-                String firstname = body.get("firstname").asText();
+                String firstname = author.get("firstname").asText();
                 if (!firstname.equals("")) film.getDirector().setFirstName(firstname);
             }
             if(author.hasNonNull("lastname")){
-                String lastname = body.get("lastname").asText();
+                String lastname = author.get("lastname").asText();
                 if (!lastname.equals("")) film.getDirector().setLastName(lastname);
             }
         }
