@@ -62,6 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .expiredUrl("/access-denied")          //(3)
                 .sessionRegistry(sessionRegistry()) ;
 
+          http.requiresChannel()
+                  .antMatchers("/**").requiresSecure();
+
     }
 
     @Bean
